@@ -167,7 +167,7 @@ student_result_management/
 ![Home](https://raw.githubusercontent.com/242-115-155/student_result_management/main/screenshots/home.png)
 
 ### Admin Dashboard
-![Admin Dashboard](https://raw.githubusercontent.com/242-115-155/student_result_management/main/screenshots/admin_dashboard.png)
+![Admin Dashboard](https://github.com/242-115-155/student_result_management/blob/main/screenshorts/admin_dashboard.png)
 
 ### Teacher Dashboard
 ![Teacher Dashboard](https://raw.githubusercontent.com/242-115-155/student_result_management/main/screenshots/teacher_dashboard.png)
