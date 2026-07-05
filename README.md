@@ -164,27 +164,21 @@ student_result_management/
 ## 📸 Screenshots
 
 ### Home Page
-
 ![Home](https://raw.githubusercontent.com/242-115-155/student_result_management/main/screenshots/home.png)
 
 ### Admin Dashboard
-
 ![Admin Dashboard](https://raw.githubusercontent.com/242-115-155/student_result_management/main/screenshots/admin_dashboard.png)
 
 ### Teacher Dashboard
-
 ![Teacher Dashboard](https://raw.githubusercontent.com/242-115-155/student_result_management/main/screenshots/teacher_dashboard.png)
 
 ### Student Dashboard
-
 ![Student Dashboard](https://raw.githubusercontent.com/242-115-155/student_result_management/main/screenshots/student_dashboard.png)
 
 ### Batch Result
-
 ![Batch Result](https://raw.githubusercontent.com/242-115-155/student_result_management/main/screenshots/batch_result.png)
 
 ### Result Page
-
 ![Result Page](https://raw.githubusercontent.com/242-115-155/student_result_management/main/screenshots/result.png)
 
 ---
