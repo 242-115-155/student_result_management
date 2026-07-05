@@ -4,7 +4,7 @@ session_start();
 // ডাটাবেজ কানেকশন
 $servername = "localhost";
 $username = "root";
-$password = "hridila44";
+$password = "";
 $dbname = "student_result_management"; 
 
 $conn = new mysqli($servername, $username, $password, $dbname);
