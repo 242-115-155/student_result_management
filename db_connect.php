@@ -3,7 +3,7 @@
 $conn = mysqli_connect(
     "localhost",
     "root",
-    "hridila44",
+    "",
     "student_result_management",
 );
 
