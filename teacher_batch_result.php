@@ -14,7 +14,7 @@ $result = mysqli_query($conn, $sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Batch Result - Metropolitan University</title>
     
-    <!-- Bootstrap 5 & FontAwesome (সাইডবার আইকনের জন্য) -->
+    <!-- Bootstrap 5 & FontAwesome -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
@@ -26,7 +26,7 @@ $result = mysqli_query($conn, $sql);
         }
         body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: var(--body-bg); margin: 0; }
         
-        /* ফিক্সড সাইডবার লেআউট */
+        
         .sidebar { width: 260px; height: 100vh; background-color: var(--sidebar-bg); position: fixed; top: 0; left: 0; padding-top: 20px; z-index: 1000; }
         .sidebar-brand { padding: 10px 24px; color: #fff; display: flex; align-items: center; gap: 12px; }
         .sidebar-menu { list-style: none; padding: 20px 12px; margin: 0; }
@@ -34,12 +34,12 @@ $result = mysqli_query($conn, $sql);
         .sidebar-menu li a:hover, .sidebar-menu li.active > a { background-color: var(--primary-blue); color: #fff; }
         .menu-label { padding: 10px 24px; color: #506784; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
         
-        /* মেইন এরিয়া এবং ফিক্সড নীল টপবার */
+        
         .main-content { margin-left: 260px; min-height: 100vh; display: flex; flex-direction: column; }
         .topbar { background-color: #0b5ed7; color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; height: 60px; }
         .wrapper { padding: 30px; flex: 1; }
         
-        /* মডার্ন টেবিল কন্টেইনার কার্ড */
+        
         .table-card { 
             background: white; 
             border-radius: 12px; 
@@ -48,7 +48,7 @@ $result = mysqli_query($conn, $sql);
             box-shadow: 0 4px 12px rgba(0,0,0,0.02); 
         }
         
-        /* ক্লিন টেবিল স্টাইলিং */
+        
         .custom-table thead th {
             background-color: #f8f9fa !important;
             color: #556270;
@@ -69,7 +69,7 @@ $result = mysqli_query($conn, $sql);
 </head>
 <body>
 
-    <!-- বাম পাশের ফিক্সড সাইডবার -->
+    
     <div class="sidebar">
         <div class="sidebar-brand">
             <i class="fa-solid fa-graduation-cap text-white fs-3 bg-primary p-2 rounded-circle"></i>
@@ -90,9 +90,9 @@ $result = mysqli_query($conn, $sql);
         </ul>
     </div>
 
-    <!-- ডান পাশের মেইন কন্টেন্ট এরিয়া -->
+    
     <div class="main-content">
-        <!-- নীল রঙের টপবার -->
+        
         <div class="topbar">
             <div class="d-flex align-items-center gap-2">
                 <i class="fa-solid fa-bars fs-5" style="cursor:pointer;"></i>
@@ -104,22 +104,22 @@ $result = mysqli_query($conn, $sql);
             </div>
         </div>
 
-        <!-- মেইন সাদা জাইগা (Wrapper) -->
+        
         <div class="wrapper">
             
-            <!-- হেডার টাইটেল ও ব্যাক বাটন সেকশন -->
+            
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div>
                     <h3 class="fw-bold m-0 text-dark">CSE-<?php echo $batch; ?> Students</h3>
                     <p class="text-muted small mb-0">List of registered students under this batch</p>
                 </div>
-                <!-- জাভাস্ক্রিপ্ট ব্যবহার করে আগের পেজে ব্যাক করার বাটন -->
+                
                 <button onclick="history.back()" class="btn btn-outline-secondary btn-sm px-3">
                     <i class="fa-solid fa-arrow-left me-1"></i> Back
                 </button>
             </div>
 
-            <!-- আপনার ডাটাবেজ লুপের মডার্ন টেবিল কার্ড -->
+            
             <div class="table-card">
                 <div class="table-responsive">
                     <table class="table custom-table table-striped table-hover m-0">
@@ -131,7 +131,7 @@ $result = mysqli_query($conn, $sql);
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- আপনার হুবহু আসল পিএইচপি হোয়াইল লুপ -->
+                            
                             <?php while($row = mysqli_fetch_assoc($result)){ ?>
                             <tr>
                                 <td class="fw-semibold text-primary"><?php echo $row['student_id']; ?></td>
@@ -146,7 +146,7 @@ $result = mysqli_query($conn, $sql);
                         </tbody>
                     </table>
                 </div>
-            </div> <!-- টেবিল কার্ড শেষ -->
+            </div> 
 
         </div>
     </div>
