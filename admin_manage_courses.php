@@ -1,5 +1,5 @@
 <?php
-// যদি AJAX রিকোয়েস্ট না হয় (অর্থাৎ সরাসরি পেজটি কেউ দেখতে চায়), তবে সেশন চেক করবে
+
 if (session_status() === PHP_SESSION_NONE && !isset($_SERVER['HTTP_X_REQUESTED_WITH'])) {
     session_start();
     if (!isset($_SESSION['admin'])) {
@@ -32,7 +32,7 @@ if (isset($_GET['search'])) {
 
 $result = mysqli_query($conn, $sql);
 
-// যদি এটি AJAX রিকোয়েস্ট না হয়, তবে বুটস্ট্র্যাপের হেড সেকশন ইনক্লুড করবে (যাতে ডিরেক্ট পেজ ওপেন করলেও ডিজাইন না ভাঙে)
+
 if (!isset($_SERVER['HTTP_X_REQUESTED_WITH'])): 
 ?>
 <!DOCTYPE html>
@@ -47,7 +47,7 @@ if (!isset($_SERVER['HTTP_X_REQUESTED_WITH'])):
 <body>
 <?php endif; ?>
 
-<!-- মেইন ড্যাশবোর্ড থিম কার্ড -->
+<!-- main dashboard theme card -->
 <div class="card border-0 shadow-sm bg-white rounded-3">
     <div class="card-header bg-primary text-white py-3 fs-5 fw-bold">
         Manage Courses
@@ -55,7 +55,7 @@ if (!isset($_SERVER['HTTP_X_REQUESTED_WITH'])):
 
     <div class="card-body p-4">
         <div class="row mb-3 align-items-center">
-            <!-- বাটন সেকশন -->
+            <!-- button section -->
             <div class="col-md-6 d-flex gap-2 mb-3 mb-md-0">
                 <a href="admin_add_course.php" class="btn btn-success px-3">
                     + Add Course
@@ -65,7 +65,7 @@ if (!isset($_SERVER['HTTP_X_REQUESTED_WITH'])):
                 </a>
             </div>
 
-            <!-- সার্চ সেকশন -->
+            <!-- search section -->
             <div class="col-md-6">
                 <form id="course-search-form" method="GET">
                     <div class="input-group">
@@ -78,7 +78,7 @@ if (!isset($_SERVER['HTTP_X_REQUESTED_WITH'])):
             </div>
         </div>
 
-        <!-- রেসপন্সিভ টেবিল -->
+        <!-- responsive table -->
         <div class="table-responsive">
             <table class="table table-bordered table-striped table-hover align-middle m-0 text-center">
                 <thead>
@@ -129,7 +129,7 @@ if (!isset($_SERVER['HTTP_X_REQUESTED_WITH'])):
     </div>
 </div>
 
-<!-- AJAX সার্চ স্ক্রিপ্ট -->
+<!-- AJAX search script -->
 <script>
     $('#course-search-form').on('submit', function(e) {
         e.preventDefault();
@@ -142,7 +142,7 @@ if (!isset($_SERVER['HTTP_X_REQUESTED_WITH'])):
             type: 'GET',
             data: { search: searchVal },
             success: function(data) {
-                // AJAX রিকোয়েস্টে শুধু কার্ডের অংশটুকু রিটার্ন করবে, তাই কোনো সমস্যা হবে না
+                
                 $('#dynamic-content').html($(data).closest('.card').length ? $(data).closest('.card') : data);
             },
             error: function() {
