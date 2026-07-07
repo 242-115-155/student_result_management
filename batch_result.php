@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// ডাটাবেজ কানেকশন
+
 $servername = "localhost";
 $username = "root";
 $password = ""; 
@@ -12,13 +12,13 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// ইউআরএল থেকে ব্যাচ প্যারামিটার নেওয়া
+
 $batch_param = isset($_GET['batch']) ? mysqli_real_escape_string($conn, $_GET['batch']) : '';
 
-// ইউআরএল থেকে যদি 'CSE-61' আসে, তবে '61' আলাদা করা
+
 $batch_name = str_replace('CSE-', '', $batch_param);
 
-// batch টেবিল থেকে সঠিক batch_id খুঁজে বের করা
+
 $batch_query = "SELECT batch_id FROM batch WHERE batch_name = '$batch_name' OR batch_name = '$batch_param' LIMIT 1";
 $batch_res = mysqli_query($conn, $batch_query);
 
@@ -28,7 +28,7 @@ if ($batch_res && mysqli_num_rows($batch_res) > 0) {
     $batch_id = $batch_row['batch_id'];
 }
 
-// সঠিক batch_id দিয়ে স্টুডেন্টদের তালিকা নিয়ে আসা
+
 if ($batch_id > 0) {
     $sql = "SELECT * FROM student WHERE batch_id = '$batch_id'";
 } else {
@@ -36,7 +36,7 @@ if ($batch_id > 0) {
 }
 $result = mysqli_query($conn, $sql);
 
-// সাইডবার লুপের জন্য ব্যাচ লিস্ট
+
 $batches_list = [
     ['id' => 'CSE-61', 'name' => '61 Batch'],
     ['id' => 'CSE-62', 'name' => '62 Batch'],
@@ -52,7 +52,7 @@ $batches_list = [
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($batch_param); ?> Students</title>
     
-    <!-- বুটস্ট্র্যাপ ও আইকন সিডিএন (ইন্টারনেট থাকলে কাজ করবে) -->
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
@@ -65,7 +65,7 @@ $batches_list = [
         }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--body-bg); margin: 0; padding: 0; }
         
-        /* সাইডবার লেআউট ফিক্স */
+        
         .sidebar {
             width: 260px; height: 100vh; background-color: var(--sidebar-bg);
             position: fixed; top: 0; left: 0; padding-top: 20px; z-index: 1000;
@@ -79,25 +79,25 @@ $batches_list = [
         }
         .sidebar-menu li a:hover, .sidebar-menu li.active > a { background-color: var(--primary-blue); color: #fff; text-decoration: none; }
         
-        /* সাবমেনু স্টাইল */
+        
         .submenu { list-style: none; padding-left: 35px; margin-bottom: 10px; display: block !important; }
         .submenu li a { padding: 8px 16px; font-size: 14px; color: #a2b4c7; display: block; text-decoration: none; }
         .submenu li a:hover, .submenu li.active-sub a { color: #fff; font-weight: bold; }
         .menu-label { padding: 10px 24px; color: #647b9c; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
         
-        /* কন্টেন্ট এরিয়া ফিক্স */
+        
         .main-content { margin-left: 260px; min-height: 100vh; display: flex; flex-direction: column; background-color: var(--body-bg); }
         .topbar { background-color: var(--primary-blue); color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; height: 60px; box-sizing: border-box; }
         .wrapper { padding: 40px; flex: 1; }
         
-        /* টেবিল কন্টেইনার ও ডিজাইন */
+        
         .table-card { background: #fff; border-radius: 12px; border: 1px solid #eef2f5; box-shadow: 0 4px 12px rgba(0,0,0,0.02); padding: 25px; margin-top: 20px; }
         .table { width: 100%; margin-bottom: 0; border-collapse: collapse; }
         .table th { background-color: #f8f9fa; color: #495057; font-weight: 600; text-transform: uppercase; font-size: 12px; padding: 15px; border-bottom: 2px solid #dee2e6; text-align: left; }
         .table td { padding: 15px; vertical-align: middle; font-size: 14px; color: #333; border-bottom: 1px solid #dee2e6; text-align: left; }
         .table-striped tbody tr:nth-of-type(odd) { background-color: rgba(0,0,0,.02); }
         
-        /* বাটন ও অন্যান্য */
+        
         .btn-view { background-color: var(--primary-blue); color: white; font-size: 13px; font-weight: 500; padding: 8px 18px; border-radius: 6px; border: none; text-decoration: none; display: inline-block; transition: 0.2s; }
         .btn-view:hover { background-color: #0b5ed7; color: white; text-decoration: none; }
         .btn-back { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; padding: 8px 20px; border-radius: 6px; text-decoration: none; }
@@ -108,7 +108,7 @@ $batches_list = [
 </head>
 <body>
 
-    <!-- বাম পাশের সাইডবার -->
+   
     <div class="sidebar">
         <div class="sidebar-brand">
             <div class="icon-container">
@@ -140,9 +140,9 @@ $batches_list = [
         </ul>
     </div>
 
-    <!-- ডান পাশের কন্টেন্ট এরিয়া -->
+    
     <div class="main-content">
-        <!-- টপ নেভিগেশন বার (Notification রিমুভড এবং ইউজার নেম সরাসরি 'Student') -->
+        
         <div class="topbar">
             <h5 class="m-0 fw-semibold"><i class="fa-solid fa-bars me-2"></i> Student Portal</h5>
             <div class="d-flex align-items-center gap-3">
@@ -161,13 +161,13 @@ $batches_list = [
         </div>
 
         <div class="wrapper">
-            <!-- হেডার ও ব্যাক বাটন -->
+            <!-- header and back button -->
             <div class="d-flex justify-content-between align-items-center mb-1" style="display: flex; justify-content: space-between; align-items: center;">
                 <h2 class="fw-bold m-0 text-dark" style="margin: 0; font-size: 28px;"><?php echo htmlspecialchars($batch_param); ?> Students</h2>
                 <a href="view_results.php" class="btn btn-outline-secondary btn-back"><i class="fa-solid fa-arrow-left"></i> Back to Batches</a>
             </div>
             
-            <!-- ব্রেডক্রাম্ব নেভিগেশন -->
+            <!-- breadcrumb navigation -->
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="student_dashboard.php">Home</a></li>
@@ -176,7 +176,7 @@ $batches_list = [
                 </ol>
             </nav>
 
-            <!-- সাদা বক্স টেবিল এরিয়া -->
+            
             <div class="table-card">
                 <table class="table table-striped">
                     <thead>
