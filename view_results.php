@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// ডাটাবেজ কানেকশন
+
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -12,7 +12,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// ব্যাচ লিস্ট (যেগুলো স্ক্রিনে কার্ড আকারে দেখাবে)
+
 $batches = [
     ['id' => 'CSE-61', 'name' => '61 Batch'],
     ['id' => 'CSE-62', 'name' => '62 Batch'],
@@ -43,7 +43,7 @@ $batches = [
         }
         body { font-family: 'Inter', sans-serif; background-color: var(--body-bg); overflow-x: hidden; }
         
-        /* বাম পাশের সাইডবার */
+        
         .sidebar {
             width: 260px; height: 100vh; background-color: var(--sidebar-bg);
             position: fixed; top: 0; left: 0; padding-top: 20px; z-index: 1000;
@@ -57,22 +57,22 @@ $batches = [
         }
         .sidebar-menu li a:hover, .sidebar-menu li.active > a { background-color: var(--primary-blue); color: #fff; }
         
-        /* সাবমেনু স্টাইল */
+        
         .submenu { list-style: none; padding-left: 35px; margin-bottom: 10px; }
         .submenu li a { padding: 8px 16px; font-size: 14px; color: #a2b4c7; display: block; text-decoration: none;}
         .submenu li a:hover { color: #fff; }
         .menu-label { padding: 10px 24px; color: #647b9c; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
         
-        /* কন্টেন্ট এরিয়া */
+        
         .main-content { margin-left: 260px; min-height: 100vh; display: flex; flex-direction: column; }
         .topbar { background-color: var(--primary-blue); color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
         .wrapper { padding: 40px; flex: 1; }
         
-        /* ব্রেডক্রাম্ব ও নোটিশ */
+        
         .breadcrumb-item a { text-decoration: none; color: var(--primary-blue); }
         .info-alert { background-color: #eec; border: none; color: #084298; border-radius: 6px; font-size: 14px; padding: 15px; }
         
-        /* ব্যাচ কার্ড ডিজাইন (৩ নং ছবির মতো) */
+        
         .batch-card {
             background: #fff; border: 1px solid #eef2f5; border-radius: 8px;
             padding: 35px 20px; text-align: center; transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(0,0,0,0.01);
@@ -90,7 +90,7 @@ $batches = [
 </head>
 <body>
 
-    <!-- বাম পাশের সাইডবার -->
+    
     <div class="sidebar">
         <div class="sidebar-brand">
             <div class="icon-container">
@@ -120,9 +120,9 @@ $batches = [
         </ul>
     </div>
 
-    <!-- ডান পাশের কন্টেন্ট এরিয়া -->
+    
     <div class="main-content">
-        <!-- টপ নেভিগেশন বার (Notification রিমুভড এবং ইউজার নেম সরাসরি 'Student') -->
+       
         <div class="topbar">
             <h5 class="m-0 fw-semibold"><i class="fa-solid fa-bars me-2"></i> Student Portal</h5>
             <div class="d-flex align-items-center gap-3">
@@ -142,7 +142,7 @@ $batches = [
 
 
         <div class="wrapper">
-            <!-- টাইটেল এবং ব্রেডক্রাম্ব -->
+            
             <div class="d-flex justify-content-between align-items-center mb-2">
                 <h2 class="fw-bold m-0 text-dark">View Results</h2>
             </div>
@@ -153,13 +153,13 @@ $batches = [
                 </ol>
             </nav>
 
-            <!-- নোটিফিকেশন অ্যালার্ট বক্স -->
+            
             <div class="alert info-alert d-flex align-items-center gap-2 mb-5" role="alert">
                 <i class="fa-solid fa-circle-info fs-5 text-primary"></i>
                 <div>Please select your batch to view results.</div>
             </div>
 
-            <!-- ব্যাচ কার্ড গ্রিড (৩ নং ছবির অবিকল ডিজাইন) -->
+            
             <div class="row g-4">
                 <?php foreach($batches as $b) { ?>
                     <div class="col-md-3">
