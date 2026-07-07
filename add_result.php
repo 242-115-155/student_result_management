@@ -1,16 +1,13 @@
 <?php
 session_start();
 
-// ডাটাবেজ কানেকশন
 include 'db_connect.php';
 
-// ফর্ম সাবমিট হলে ডেটা প্রসেস করার লজিক (আপনার ফাইল অনুসারে)
 if (isset($_POST['student_id'])) {
     $student_id  = $_POST['student_id'];
     $course_code = $_POST['course_code'];
     $marks       = $_POST['marks'];
 
-    // এখানে আপনার ডাটাবেজ ইনসার্ট কুয়েরি লিখতে পারেন, যেমন:
     $sql = "INSERT INTO result (student_id, course_code, marks) VALUES ('$student_id', '$course_code', '$marks')";
     if (mysqli_query($conn, $sql)) {
         echo "<script>alert('Result Added Successfully');</script>";
@@ -40,7 +37,7 @@ if (isset($_POST['student_id'])) {
         }
         body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: var(--body-bg); margin: 0; }
         
-        /* সাইডবার ডিজাইন */
+        /* sidebar design */
         .sidebar { width: 260px; height: 100vh; background-color: var(--sidebar-bg); position: fixed; top: 0; left: 0; padding-top: 20px; z-index: 1000; }
         .sidebar-brand { padding: 10px 24px; color: #fff; display: flex; align-items: center; gap: 12px; }
         .sidebar-menu { list-style: none; padding: 20px 12px; margin: 0; }
@@ -48,18 +45,18 @@ if (isset($_POST['student_id'])) {
         .sidebar-menu li a:hover, .sidebar-menu li.active > a { background-color: var(--primary-blue); color: #fff; }
         .menu-label { padding: 10px 24px; color: #506784; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
         
-        /* মেইন লেআউট */
+        /* main layout */
         .main-content { margin-left: 260px; min-height: 100vh; display: flex; flex-direction: column; }
         .topbar { background-color: #0b5ed7; color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; height: 60px; }
         .wrapper { padding: 30px; flex: 1; }
         
-        /* ফর্ম কার্ড ডিজাইন */
+        /* form card design */
         .form-card { background: white; border-radius: 12px; padding: 30px; border: 1px solid #eef2f5; box-shadow: 0 4px 12px rgba(0,0,0,0.01); max-width: 700px; margin: 0 auto; }
         .form-control { border-radius: 8px; padding: 10px 15px; border: 1px solid #ced4da; font-size: 14px; }
         .form-control:focus { border-color: var(--success-green); box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.15); }
         .form-label { font-weight: 600; color: #495057; font-size: 14px; margin-bottom: 8px; }
 
-        /* সিস্টেম ইনফো টেবিল স্টাইল */
+        /* system info table style */
         .sys-card { background: white; border-radius: 12px; padding: 20px; border: 1px solid #eef2f5; box-shadow: 0 4px 12px rgba(0,0,0,0.01); max-width: 700px; margin: 20px auto 0 auto; }
         .sys-info-table td { padding: 10px 8px; border-bottom: 1px solid #f1f4f8; font-size: 14px; }
         .sys-info-table tr:last-child td { border-bottom: none; }
@@ -67,7 +64,7 @@ if (isset($_POST['student_id'])) {
 </head>
 <body>
 
-    <!-- বাম পাশের মডার্ন সাইডবার (Add Result মেনু এক্টিভ) -->
+    <!-- left side modern sidebar (Add Result menu active) -->
     <div class="sidebar">
         <div class="sidebar-brand">
             <i class="fa-solid fa-graduation-cap text-white fs-3 bg-primary p-2 rounded-circle"></i>
@@ -88,9 +85,9 @@ if (isset($_POST['student_id'])) {
         </ul>
     </div>
 
-    <!-- ডান পাশের মেইন কন্টেন্ট এরিয়া -->
+    <!-- right side main content area -->
     <div class="main-content">
-        <!-- টপবার -->
+        <!-- topbar -->
         <div class="topbar">
             <div class="d-flex align-items-center gap-2">
                 <i class="fa-solid fa-bars fs-5" style="cursor:pointer;"></i>
@@ -102,14 +99,12 @@ if (isset($_POST['student_id'])) {
             </div>
         </div>
 
-        <!-- সাদা মেইন স্পেস যেখানে ফর্ম ওপেন হবে -->
         <div class="wrapper">
             <div class="max-width: 700px; margin: 0 auto; mb-4 text-center">
                 <h3 class="fw-bold m-0 text-dark">Add Student Result</h3>
                 <p class="text-muted small">Enter the student's marks and course details below</p>
             </div>
 
-            <!-- মডার্ন ফর্ম কার্ড (সবুজ থিম - আপনার আগের বাটনের কালার ম্যাচ করে) -->
             <div class="form-card">
                 <form method="POST" action="add_result.php">
                     <div class="mb-3">
