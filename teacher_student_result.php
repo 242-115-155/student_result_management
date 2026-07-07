@@ -1,21 +1,20 @@
 <?php
 include 'db_connect.php';
 
-// ইউআরএল থেকে স্টুডেন্ট আইডি এবং ব্যাক করার জন্য ব্যাচ আইডি রিসিভ করা
+
 $student_id = isset($_GET['id']) ? $_GET['id'] : '';
 $batch = isset($_GET['batch']) ? $_GET['batch'] : '';
 
-// ১. স্টুডেন্টের বেসিক তথ্য জানার কুয়েরি
+
 $student_sql = "SELECT * FROM student WHERE student_id='$student_id'";
 $student_result = mysqli_query($conn, $student_sql);
 $student_data = mysqli_fetch_assoc($student_result);
 
-// ২. রেজাল্ট টেবিল থেকে তথ্য জানার কুয়েরি (সব কলামসহ)
+
 $result_sql = "SELECT * FROM result WHERE student_id='$student_id'"; 
 $result_query = mysqli_query($conn, $result_sql);
 
-// ৩. জিপিএ/সিজিপিএ ডাটাবেজ থেকে সরাসরি দেখানোর জন্য (যদি আলাদা টেবিল বা ফিল্ড থাকে)
-// আপনার ডাটাবেজ অনুযায়ী এই কুয়েরিটি কাজ করবে। যদি একই টেবিলে থাকে বা ভ্যারিয়েবল ভিন্ন হয়, একটু দেখে নিবেন।
+
 $gpa_sql = "SELECT * FROM student WHERE student_id='$student_id'";
 $gpa_query = mysqli_query($conn, $gpa_sql);
 $gpa_data = mysqli_fetch_assoc($gpa_query);
@@ -40,7 +39,7 @@ $gpa_data = mysqli_fetch_assoc($gpa_query);
         }
         body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: var(--body-bg); margin: 0; }
         
-        /* শিক্ষকের ফিক্সড সাইডবার லেআউট */
+        
         .sidebar { width: 260px; height: 100vh; background-color: var(--sidebar-bg); position: fixed; top: 0; left: 0; padding-top: 20px; z-index: 1000; }
         .sidebar-brand { padding: 10px 24px; color: #fff; display: flex; align-items: center; gap: 12px; }
         .sidebar-menu { list-style: none; padding: 20px 12px; margin: 0; }
@@ -48,12 +47,12 @@ $gpa_data = mysqli_fetch_assoc($gpa_query);
         .sidebar-menu li a:hover, .sidebar-menu li.active > a { background-color: var(--primary-blue); color: #fff; }
         .menu-label { padding: 10px 24px; color: #506784; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
         
-        /* মেইন লেআউট ও ব্লু টপবার */
+        
         .main-content { margin-left: 260px; min-height: 100vh; display: flex; flex-direction: column; }
         .topbar { background-color: #0b5ed7; color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; height: 60px; }
         .wrapper { padding: 30px; flex: 1; }
         
-        /* সাদা মেইন কন্টেন্ট এরিয়া (রেজাল্ট বক্স) */
+        
         .result-container-box { 
             background: white; 
             border-radius: 12px; 
@@ -62,7 +61,7 @@ $gpa_data = mysqli_fetch_assoc($gpa_query);
             box-shadow: 0 4px 12px rgba(0,0,0,0.02); 
         }
         
-        /* রেজাল্ট টেবিল স্টাইলিং */
+        
         .result-table thead th {
             background-color: #f8f9fa !important;
             color: #556270;
@@ -79,7 +78,7 @@ $gpa_data = mysqli_fetch_assoc($gpa_query);
             font-size: 14px;
         }
         
-        /* GPA / CGPA বক্স স্টাইল */
+        
         .gpa-box {
             font-size: 16px;
             font-weight: 600;
@@ -94,7 +93,7 @@ $gpa_data = mysqli_fetch_assoc($gpa_query);
 </head>
 <body>
 
-    <!-- বাম পাশে শিক্ষকের আসল সাইডবার ফিক্সড থাকবে -->
+    
     <div class="sidebar">
         <div class="sidebar-brand">
             <i class="fa-solid fa-graduation-cap text-white fs-3 bg-primary p-2 rounded-circle"></i>
@@ -115,9 +114,9 @@ $gpa_data = mysqli_fetch_assoc($gpa_query);
         </ul>
     </div>
 
-    <!-- ডান পাশের মেইন কন্টেন্ট এরিয়া -->
+    
     <div class="main-content">
-        <!-- নীল রঙের টপবার -->
+        
         <div class="topbar">
             <div class="d-flex align-items-center gap-2">
                 <i class="fa-solid fa-bars fs-5" style="cursor:pointer;"></i>
@@ -130,17 +129,17 @@ $gpa_data = mysqli_fetch_assoc($gpa_query);
         </div>
 
        <div class="wrapper">
-            <!-- হেডার ও ব্যাক বাটন -->
+            
             <div class="d-flex justify-content-between align-items-center mb-1" style="display: flex; justify-content: space-between; align-items: center;">
                 <h2 class="fw-bold m-0 text-dark" style="margin: 0; font-size: 28px;">Student Result</h2>
                 <a href="javascript:history.back()" class="btn btn-outline-secondary btn-back"><i class="fa-solid fa-arrow-left"></i> Back</a>
             </div>
             
 
-            <!-- স্টুডেন্ট রেজাল্টের মেইন বক্স কন্টেইনার -->
+            
             <div class="result-container-box">
                 
-                <!-- স্টুডেন্ট আইডি ও নাম ডিসপ্লে -->
+                
                 <div class="mb-4">
                     <h5 class="fw-bold text-dark mb-1">Student ID: <?php echo htmlspecialchars($student_id); ?></h5>
                     <?php if($student_data) { ?>
@@ -148,7 +147,7 @@ $gpa_data = mysqli_fetch_assoc($gpa_query);
                     <?php } ?>
                 </div>
 
-                <!-- ৫ কলাম বিশিষ্ট আসল রেজাল্ট টেবিল -->
+                
                 <div class="table-responsive">
                     <table class="table result-table table-bordered table-striped m-0">
                         <thead>
@@ -182,15 +181,15 @@ $gpa_data = mysqli_fetch_assoc($gpa_query);
                     </table>
                 </div>
 
-                <!-- নিচে GPA / CGPA সেকশন -->
+                
                 <div class="mt-4 pt-3 border-top">
                     <div class="gpa-box">
-                        <!-- আপনার ডাটাবেজের ফিল্ডের নাম অনুযায়ী $gpa_data['gpa'] বা $gpa_data['cgpa'] বা $row['gpa'] এখানে সেট হবে -->
+                        
                         GPA / CGPA : <?php echo isset($gpa_data['gpa']) ? htmlspecialchars($gpa_data['gpa']) : (isset($gpa_data['cgpa']) ? htmlspecialchars($gpa_data['cgpa']) : '3.50'); ?>
                     </div>
                 </div>
 
-            </div> <!-- রেজাল্ট বক্স শেষ -->
+            </div> 
 
         </div>
     </div>
