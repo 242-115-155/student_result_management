@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// ডাটাবেজ কানেকশন
+
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -12,20 +12,20 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// ৪টি স্ট্যাটিসটিক্স কার্ডের জন্য ডাইনামিক কুয়েরি 
+
 $total_students = $conn->query("SELECT COUNT(*) AS total FROM student")->fetch_assoc()['total'] ?? 0;
 $total_batches  = $conn->query("SELECT COUNT(*) AS total FROM batch")->fetch_assoc()['total'] ?? 0;
 $total_courses  = $conn->query("SELECT COUNT(*) AS total FROM course")->fetch_assoc()['total'] ?? 0;
 $total_results  = $conn->query("SELECT COUNT(*) AS total FROM result")->fetch_assoc()['total'] ?? 0;
 
-// Recent Results Table
+
 $recent_results_query = "SELECT r.student_id, s.student_name, r.course_name, r.marks, r.grade 
                          FROM result r
                          LEFT JOIN student s ON r.student_id = s.student_id
                          ORDER BY r.result_id DESC LIMIT 5";
 $recent_results_list = $conn->query($recent_results_query);
 
-// ১. Students by Batch (Pie Chart Data)
+// 1. Students by Batch (Pie Chart Data)
 $batch_counts = ['CSE-61' => 0, 'CSE-62' => 0, 'CSE-63' => 0, 'CSE-64' => 0];
 $batch_chart_query = "SELECT b.batch_name, COUNT(s.student_id) AS total_stu 
                       FROM student s 
@@ -42,7 +42,7 @@ if ($batch_chart_res) {
     }
 }
 
-// ২. Results Overview by Grade (Bar Chart Data)
+// 2. Results Overview by Grade (Bar Chart Data)
 $grade_counts = ['A+' => 0, 'A' => 0, 'A-' => 0, 'B+' => 0, 'B' => 0, 'C' => 0, 'D' => 0, 'F' => 0];
 $grade_chart_query = "SELECT grade, COUNT(*) AS total_grade FROM result GROUP BY grade";
 $grade_chart_res = $conn->query($grade_chart_query);
@@ -78,7 +78,7 @@ if ($grade_chart_res) {
         }
         body { font-family: 'Inter', sans-serif; background-color: var(--body-bg); overflow-x: hidden; }
         
-        /* বাম পাশের সাইডবার */
+        
         .sidebar {
             width: 260px; height: 100vh; background-color: var(--sidebar-bg);
             position: fixed; top: 0; left: 0; padding-top: 20px; z-index: 1000;
@@ -92,13 +92,13 @@ if ($grade_chart_res) {
         }
         .sidebar-menu li a:hover, .sidebar-menu li.active > a { background-color: var(--primary-blue); color: #fff; }
         
-        /* কোলাপসিবল সাবমেনু */
+        
         .submenu { list-style: none; padding-left: 35px; margin-bottom: 10px; }
         .submenu li a { padding: 8px 16px; font-size: 14px; color: #a2b4c7; }
         .submenu li a:hover { background-color: var(--sidebar-hover); color: #fff; }
         .menu-label { padding: 10px 24px; color: #647b9c; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
         
-        /* কন্টেন্ট এরিয়া */
+        
         .main-content { margin-left: 260px; min-height: 100vh; display: flex; flex-direction: column; }
         .topbar { background: linear-gradient(135deg, #0d4295 0%, #0061f2 100%); color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         .wrapper { padding: 30px; flex: 1; }
@@ -116,13 +116,13 @@ if ($grade_chart_res) {
         .action-box:hover { box-shadow: 0 8px 20px rgba(0,0,0,0.08); transform: translateY(-2px); }
         .action-icon { font-size: 28px; margin-bottom: 10px; }
         
-        /* চার্ট কন্টেইনার ফিক্স */
+        
         .chart-wrapper { position: relative; width: 100%; height: 260px; display: flex; justify-content: center; align-items: center; }
     </style>
 </head>
 <body>
 
-    <!-- বাম পাশের সাইডবার -->
+    
     <div class="sidebar">
         <div class="university-logo d-flex align-items-center gap-3 pb-3 mb-2">
             <div class="bg-white rounded-circle p-1 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
@@ -155,9 +155,9 @@ if ($grade_chart_res) {
         </ul>
     </div>
 
-    <!-- ডান পাশের কন্টেন্ট এরিয়া -->
+    
     <div class="main-content">
-        <!-- টপ নেভিগেশন বার (Notification রিমুভড এবং ইউজার নেম সরাসরি 'Student') -->
+        
         <div class="topbar">
             <h5 class="m-0 fw-semibold"><i class="fa-solid fa-bars me-2"></i> Student Portal</h5>
             <div class="d-flex align-items-center gap-3">
@@ -176,13 +176,13 @@ if ($grade_chart_res) {
         </div>
 
         <div class="wrapper">
-            <!-- হেডার এবং সাবটাইটেল -->
+           
             <div class="mb-4">
                 <h2 class="fw-bold m-0 text-dark">Student Dashboard</h2>
                 <p class="text-muted m-0">Welcome back, dear student!</p>
             </div>
 
-            <!-- শীর্ষ ৪টি স্ট্যাটিসটিক্স কার্ডস -->
+            
             <div class="row mb-4 g-3">
                 <div class="col-md-3">
                     <div class="card stat-card p-3">
@@ -230,7 +230,7 @@ if ($grade_chart_res) {
                 </div>
             </div>
 
-            <!-- কুইক অ্যাকশন এবং রিসেন্ট রেজাল্ট টেবিল -->
+            
             <div class="row mb-4">
                 <div class="col-md-4 mb-3">
                     <div class="card stat-card p-4 h-100">
@@ -299,9 +299,9 @@ if ($grade_chart_res) {
                 </div>
             </div>
 
-            <!-- চার্ট এরিয়া -->
+            
             <div class="row">
-                <!-- বামে: Students by Batch (Pie Chart ফিক্সড) -->
+                
                 <div class="col-md-5 mb-4">
                     <div class="card stat-card p-4 h-100">
                         <h5 class="fw-bold mb-3 text-dark">Students by Batch</h5>
@@ -311,7 +311,7 @@ if ($grade_chart_res) {
                     </div>
                 </div>
 
-                <!-- মাঝে: Results Overview (Bar Chart) -->
+                
                 <div class="col-md-4 mb-4">
                     <div class="card stat-card p-4 h-100">
                         <h5 class="fw-bold mb-3 text-dark">Results Overview</h5>
@@ -321,7 +321,7 @@ if ($grade_chart_res) {
                     </div>
                 </div>
 
-                <!-- ডানে: System Info Card -->
+                
                 <div class="col-md-3 mb-4">
                     <div class="card stat-card p-4 h-100">
                         <h5 class="fw-bold mb-4 text-dark"><i class="fa-solid fa-circle-info me-2 text-info"></i>System Info</h5>
@@ -357,7 +357,7 @@ if ($grade_chart_res) {
                 </div>
             </div>
 
-            <!-- ফুটার -->
+            
             <footer class="text-center text-muted mt-5 small py-3 border-top bg-white rounded">
                 <p class="m-0">© 2026 <strong>Metropolitan University</strong>. All rights reserved.</p>
                 <small class="text-muted">Developed by <strong>Maliha Tabassum Hridila</strong></small>
@@ -370,7 +370,7 @@ if ($grade_chart_res) {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <script>
-        // ১. Live JavaScript Clock
+        // 1. Live JavaScript Clock
         function updateClock() {
             const now = new Date();
             let hours = now.getHours();
@@ -388,7 +388,7 @@ if ($grade_chart_res) {
         setInterval(updateClock, 1000);
         updateClock();
 
-        // ২. Students by Batch (Pie Chart - ফিক্সড কন্টেইনার রেসপন্সিভনেস)
+        // 2. Students by Batch 
         const ctxPie = document.getElementById('batchPieChart').getContext('2d');
     new Chart(ctxPie, {
         type: 'pie',
@@ -416,7 +416,7 @@ if ($grade_chart_res) {
             }
         }
     });
-        // ৩. Results Overview (Bar Chart)
+        // 3. Results Overview (Bar Chart)
         const ctxBar = document.getElementById('resultsOverviewChart').getContext('2d');
         new Chart(ctxBar, {
             type: 'bar',
