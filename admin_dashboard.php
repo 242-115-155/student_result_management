@@ -361,15 +361,15 @@ foreach ($batch_data as $row) {
         // Event triggers for 'Manage Teachers'
         $(document).on('click', '#nav-teachers, #action-manage-teachers', function(e) {
         e.preventDefault();
-        updateActiveTab('#nav-teachers'); // সাইডবারে টিচার ট্যাব একটিভ করবে
+        updateActiveTab('#nav-teachers');
         loadPageContent('admin_manage_teachers.php'); 
         });
 
         // Event triggers for 'Manage Courses'
         $(document).on('click', '#nav-courses, #action-manage-courses', function(e) {
         e.preventDefault();
-        updateActiveTab('#nav-courses'); // সাইডবারে কোর্স ট্যাব একটিভ করবে
-        loadPageContent('admin_manage_courses.php'); // ড্যাশবোর্ডের ভেতর কোর্স পেজ লোড করবে
+        updateActiveTab('#nav-courses'); 
+        loadPageContent('admin_manage_courses.php');
         });
 
         // Event triggers for 'Manage Batches'
@@ -402,13 +402,13 @@ $       (document).on('click', '#nav-results', function(e) {
 
         const ctxLine = document.getElementById('resultsLineChart').getContext('2d');
 new Chart(ctxLine, {
-    type: 'bar', // গ্রেড ডিস্ট্রিবিউশন বার চার্টে দেখতে বেশি সুন্দর লাগে, চাইলে 'line' ও রাখতে পারেন
+    type: 'bar', 
     data: {
-        labels: <?php echo $js_grade_labels; ?>, // ডাটাবেজ থেকে আসা গ্রেড (A+, A, A-...)
+        labels: <?php echo $js_grade_labels; ?>, 
         datasets: [{
             label: 'Total Students',
-            data: <?php echo $js_grade_data; ?>, // ডাটাবেজের আসল স্টুডেন্ট সংখ্যা
-            backgroundColor: 'rgba(13, 110, 253, 0.4)', // সুন্দর নীল রঙ
+            data: <?php echo $js_grade_data; ?>, 
+            backgroundColor: 'rgba(13, 110, 253, 0.4)', 
             borderColor: 'rgba(13, 110, 253, 1)',
             borderWidth: 2,
             borderRadius: 5
@@ -417,13 +417,13 @@ new Chart(ctxLine, {
     options: {
         responsive: true,
         plugins: {
-            legend: { display: false } // লিজেন্ড হাইড রাখলাম দেখতে ক্লিন লাগবে
+            legend: { display: false }
         },
         scales: {
             y: {
                 beginAtZero: true,
                 ticks: {
-                    stepSize: 1 // ১, ২, ৩ করে সংখ্যা বাড়বে
+                    stepSize: 1 
                 }
             }
         }
