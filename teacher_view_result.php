@@ -1,6 +1,6 @@
 <?php
 session_start();
-// ডাটাবেজ কানেকশন (প্রয়োজন হলে অন রাখুন)
+
 // include 'db_connect.php';
 ?>
 
@@ -23,7 +23,7 @@ session_start();
         }
         body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: var(--body-bg); margin: 0; }
         
-        /* সাইডবার ডিজাইন */
+        
         .sidebar { width: 260px; height: 100vh; background-color: var(--sidebar-bg); position: fixed; top: 0; left: 0; padding-top: 20px; z-index: 1000; }
         .sidebar-brand { padding: 10px 24px; color: #fff; display: flex; align-items: center; gap: 12px; }
         .sidebar-menu { list-style: none; padding: 20px 12px; margin: 0; }
@@ -31,12 +31,12 @@ session_start();
         .sidebar-menu li a:hover, .sidebar-menu li.active > a { background-color: var(--primary-blue); color: #fff; }
         .menu-label { padding: 10px 24px; color: #506784; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
         
-        /* মেইন লেআউট */
+       
         .main-content { margin-left: 260px; min-height: 100vh; display: flex; flex-direction: column; }
         .topbar { background-color: #0b5ed7; color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; height: 60px; }
         .wrapper { padding: 30px; flex: 1; }
         
-        /* ব্যাচ কার্ড গ্রিড ডিজাইন */
+        
         .batch-card { 
             background: white; 
             border-radius: 14px; 
@@ -73,7 +73,7 @@ session_start();
         .batch-title { font-size: 18px; font-weight: 700; color: #212529; margin-bottom: 8px; }
         .batch-link-text { font-size: 13px; font-weight: 600; color: var(--primary-blue); display: flex; align-items: center; justify-content: center; gap: 6px; }
 
-        /* ইনফো অ্যালার্ট বার */
+        
         .info-alert-bar {
             background-color: #fff;
             border-left: 4px solid var(--primary-blue);
@@ -90,7 +90,7 @@ session_start();
 </head>
 <body>
 
-    <!-- বাম পাশের মডার্ন সাইডবার (View Results মেনু এখন এক্টিভ) -->
+    
     <div class="sidebar">
         <div class="sidebar-brand">
             <i class="fa-solid fa-graduation-cap text-white fs-3 bg-primary p-2 rounded-circle"></i>
@@ -111,9 +111,9 @@ session_start();
         </ul>
     </div>
 
-    <!-- ডান পাশের মেইন কন্টেন্ট এরিয়া -->
+    
     <div class="main-content">
-        <!-- টপবার -->
+        
         <div class="topbar">
             <div class="d-flex align-items-center gap-2">
                 <i class="fa-solid fa-bars fs-5" style="cursor:pointer;"></i>
@@ -125,9 +125,9 @@ session_start();
             </div>
         </div>
 
-        <!-- মেইন কন্টেন্ট এরিয়া wrapper -->
+        
         <div class="wrapper">
-            <!-- হেডার টাইটেল -->
+            
             <div class="mb-4">
                 <h3 class="fw-bold m-0 text-dark">View Results</h3>
                 <nav aria-label="breadcrumb">
@@ -138,13 +138,13 @@ session_start();
                 </nav>
             </div>
 
-            <!-- ইনফো বার নোটিফিকেশন -->
+            
             <div class="info-alert-bar mb-4">
                 <i class="fa-solid fa-circle-info text-primary fs-5"></i>
                 <span>Please select your desired batch from below to view detailed academic results.</span>
             </div>
 
-            <!-- মডার্ন ব্যাচ কার্ড গ্রিড (৪টি কলাম রেসপনসিভ) -->
+            
             <div class="row g-4">
                 
                 <!-- 61 Batch -->
