@@ -1,10 +1,8 @@
 <?php
 session_start();
 
-// ডাটাবেজ কানেকশন
 include 'db_connect.php';
 
-// ফর্ম সাবমিট হলে ডেটা ইনসার্ট করার লজিক (আপনার আগের কোড অনুসারে)
 if (isset($_POST['save_student'])) {
     $student_id   = $_POST['student_id'];
     $student_name = $_POST['student_name'];
@@ -30,7 +28,7 @@ if (isset($_POST['save_student'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Student - Metropolitan University</title>
     
-    <!-- Bootstrap 5 & FontAwesome (ড্যাশবোর্ডের সাথে ম্যাচিং) -->
+    <!-- Bootstrap 5 & FontAwesome -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
@@ -42,7 +40,7 @@ if (isset($_POST['save_student'])) {
         }
         body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: var(--body-bg); margin: 0; }
         
-        /* সাইডবার ডিজাইন (ড্যাশবোর্ডের মতন সেম) */
+        /* sidebar design */
         .sidebar { width: 260px; height: 100vh; background-color: var(--sidebar-bg); position: fixed; top: 0; left: 0; padding-top: 20px; z-index: 1000; }
         .sidebar-brand { padding: 10px 24px; color: #fff; display: flex; align-items: center; gap: 12px; }
         .sidebar-menu { list-style: none; padding: 20px 12px; margin: 0; }
@@ -50,18 +48,18 @@ if (isset($_POST['save_student'])) {
         .sidebar-menu li a:hover, .sidebar-menu li.active > a { background-color: var(--primary-blue); color: #fff; }
         .menu-label { padding: 10px 24px; color: #506784; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
         
-        /* মেইন লেআউট */
+        /* main layout */
         .main-content { margin-left: 260px; min-height: 100vh; display: flex; flex-direction: column; }
         .topbar { background-color: #0b5ed7; color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; height: 60px; }
         .wrapper { padding: 30px; flex: 1; }
         
-        /* ফর্ম কার্ড ডিজাইন */
+        /* form card design */
         .form-card { background: white; border-radius: 12px; padding: 30px; border: 1px solid #eef2f5; box-shadow: 0 4px 12px rgba(0,0,0,0.01); max-width: 700px; margin: 0 auto; }
         .form-control, .form-select { border-radius: 8px; padding: 10px 15px; border: 1px solid #ced4da; font-size: 14px; }
         .form-control:focus, .form-select:focus { border-color: var(--primary-blue); box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15); }
         .form-label { font-weight: 600; color: #495057; font-size: 14px; margin-bottom: 8px; }
 
-        /* সিস্টেম ইনফো টেবিল স্টাইল */
+        /* system info table style */
         .sys-card { background: white; border-radius: 12px; padding: 20px; border: 1px solid #eef2f5; box-shadow: 0 4px 12px rgba(0,0,0,0.01); max-width: 700px; margin: 20px auto 0 auto; }
         .sys-info-table td { padding: 10px 8px; border-bottom: 1px solid #f1f4f8; font-size: 14px; }
         .sys-info-table tr:last-child td { border-bottom: none; }
@@ -69,7 +67,7 @@ if (isset($_POST['save_student'])) {
 </head>
 <body>
 
-    <!-- বাম পাশের মডার্ন সাইডবার (Add Student মেনু এক্টিভ) -->
+    
     <div class="sidebar">
         <div class="sidebar-brand">
             <i class="fa-solid fa-graduation-cap text-white fs-3 bg-primary p-2 rounded-circle"></i>
@@ -90,9 +88,9 @@ if (isset($_POST['save_student'])) {
         </ul>
     </div>
 
-    <!-- ডান পাশের মেইন কন্টেন্ট এরিয়া -->
+    
     <div class="main-content">
-        <!-- টপবার (ড্যাশবোর্ডের মতই নোটিফিকেশন রিমুভড) -->
+        
         <div class="topbar">
             <div class="d-flex align-items-center gap-2">
                 <i class="fa-solid fa-bars fs-5" style="cursor:pointer;"></i>
@@ -104,14 +102,14 @@ if (isset($_POST['save_student'])) {
             </div>
         </div>
 
-        <!-- সাদা মেইন স্পেস যেখানে ফর্ম ওপেন হবে -->
+        
         <div class="wrapper">
             <div class="max-width: 700px; margin: 0 auto; mb-4 text-center">
                 <h3 class="fw-bold m-0 text-dark">Add New Student</h3>
                 <p class="text-muted small">Fill up the information below to register a student</p>
             </div>
 
-            <!-- মডার্ন ফর্ম কার্ড -->
+            
             <div class="form-card">
                 <form method="POST" action="add_student.php">
                     <div class="mb-3">
