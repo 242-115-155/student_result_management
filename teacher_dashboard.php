@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// ডাটাবেজ কানেকশন
+
 $servername = "localhost";
 $username = "root";
 $password = ""; 
@@ -12,19 +12,19 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// ১. টপ কার্ডের ডাইনামিক কুয়েরি কাউন্ট
+
 $total_students = $conn->query("SELECT COUNT(*) as count FROM student")->fetch_assoc()['count'];
 $total_batches  = $conn->query("SELECT COUNT(*) as count FROM batch")->fetch_assoc()['count'];
 $total_courses  = $conn->query("SELECT COUNT(DISTINCT course_code) as count FROM result")->fetch_assoc()['count'];
 $total_results  = $conn->query("SELECT COUNT(*) as count FROM result")->fetch_assoc()['count'];
 
-// ২. সাম্প্রতিক রেজাল্ট টেবিল ডেটা (Recent Results)
+
 $recent_query = "SELECT r.*, s.student_name FROM result r 
                  JOIN student s ON r.student_id = s.student_id 
                  ORDER BY r.result_id DESC LIMIT 5";
 $recent_results = $conn->query($recent_query);
 
-// ৩. পাই-চার্টের ডেটা: Students by Batch
+
 $batch_chart_query = "SELECT b.batch_name, COUNT(s.student_id) as student_count 
                       FROM batch b 
                       LEFT JOIN student s ON b.batch_id = s.batch_id 
@@ -38,7 +38,7 @@ while($row = $batch_chart_res->fetch_assoc()) {
     $batch_counts[] = $row['student_count'];
 }
 
-// ৪. বার-চার্টের ডেটা: Results Overview By Grade
+// Results Overview By Grade
 $grades = ['A+', 'A', 'A-', 'B+', 'B', 'C', 'D', 'F'];
 $grade_counts = [];
 foreach($grades as $g) {
@@ -68,7 +68,7 @@ foreach($grades as $g) {
         }
         body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: var(--body-bg); margin: 0; }
         
-        /* সাইডবার ডিজাইন */
+        
         .sidebar { width: 260px; height: 100vh; background-color: var(--sidebar-bg); position: fixed; top: 0; left: 0; padding-top: 20px; z-index: 1000; }
         .sidebar-brand { padding: 10px 24px; color: #fff; display: flex; align-items: center; gap: 12px; }
         .sidebar-menu { list-style: none; padding: 20px 12px; margin: 0; }
@@ -76,34 +76,34 @@ foreach($grades as $g) {
         .sidebar-menu li a:hover, .sidebar-menu li.active > a { background-color: var(--primary-blue); color: #fff; }
         .menu-label { padding: 10px 24px; color: #506784; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
         
-        /* মেইন লেআউট */
+        
         .main-content { margin-left: 260px; min-height: 100vh; display: flex; flex-direction: column; }
         .topbar { background-color: #0b5ed7; color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; height: 60px; }
         .wrapper { padding: 30px; }
         
-        /* ড্যাশবোর্ড মডার্ন ৪টি টপ কার্ডস */
+        
         .stat-card { background: white; border-radius: 12px; border: 1px solid #eef2f5; padding: 20px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 12px rgba(0,0,0,0.01); }
         .stat-icon { width: 50px; height: 50px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px; }
         
-        /* কুইক অ্যাকশন গ্রিড (৬টি বাটন ডিজাইন) */
+        
         .action-box { background: white; border-radius: 12px; padding: 25px; height: 100%; border: 1px solid #eef2f5; box-shadow: 0 4px 12px rgba(0,0,0,0.01); }
         .action-btn { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15px; border-radius: 12px; border: none; text-decoration: none; font-weight: 600; font-size: 12px; transition: transform 0.2s; height: 100px; text-align: center; }
         .action-btn:hover { transform: translateY(-3px); color: initial; }
         
-        /* টেবিল এবং চার্ট কার্ড */
+        
         .dashboard-card { background: white; border-radius: 12px; padding: 25px; border: 1px solid #eef2f5; box-shadow: 0 4px 12px rgba(0,0,0,0.01); height: 100%; }
         .table th { background-color: #f8f9fa; color: #6c757d; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; padding: 12px; }
         .table td { padding: 12px; vertical-align: middle; font-size: 14px; }
         .badge-grade { padding: 5px 10px; border-radius: 6px; font-weight: 600; font-size: 12px; }
 
-        /* সিস্টেম ইনফো টেবিল স্টাইল */
+        
         .sys-info-table td { padding: 12px 8px; border-bottom: 1px solid #f1f4f8; font-size: 14px; }
         .sys-info-table tr:last-child td { border-bottom: none; }
     </style>
 </head>
 <body>
 
-    <!-- বাম পাশের মডার্ন সাইডবার -->
+    
     <div class="sidebar">
         <div class="sidebar-brand">
             <i class="fa-solid fa-graduation-cap text-white fs-3 bg-primary p-2 rounded-circle"></i>
@@ -124,9 +124,9 @@ foreach($grades as $g) {
         </ul>
     </div>
 
-    <!-- ডান পাশের মেইন কন্টেন্ট এরিয়া -->
+    
     <div class="main-content">
-        <!-- টপবার (নোটিফিকেশন রিমুভড) -->
+        
         <div class="topbar">
             <div class="d-flex align-items-center gap-2">
                 <i class="fa-solid fa-bars fs-5" style="cursor:pointer;"></i>
@@ -144,7 +144,7 @@ foreach($grades as $g) {
                 <p class="text-muted small m-0">Welcome back, Teacher</p>
             </div>
 
-            <!-- ১. ৪টি স্ট্যাটাস কার্ড গ্রিড (টপ রিকোয়ারমেন্ট) -->
+            
             <div class="row g-3 mb-4">
                 <div class="col-md-3">
                     <div class="stat-card">
@@ -184,9 +184,9 @@ foreach($grades as $g) {
                 </div>
             </div>
 
-            <!-- ২. কুইক অ্যাকশন (৬টি বাটন) এবং রিসেন্ট রেজাল্টস রও -->
+            
             <div class="row g-4 mb-4">
-                <!-- কুইক অ্যাকশন বক্স -->
+               
                 <div class="col-lg-5">
                     <div class="action-box">
                         <h6 class="fw-bold text-dark mb-3">Quick Actions</h6>
@@ -201,7 +201,7 @@ foreach($grades as $g) {
                     </div>
                 </div>
 
-                <!-- সাম্প্রতিক রেজাল্ট টেবিল কার্ড -->
+                
                 <div class="col-lg-7">
                     <div class="dashboard-card">
                         <div class="d-flex justify-content-between align-items-center mb-3">
@@ -245,9 +245,9 @@ foreach($grades as $g) {
                 </div>
             </div>
 
-            <!-- ৩. নিচের সেকশন: ২টা চার্ট এবং সিস্টেম ইনফো গ্রিড -->
+            
             <div class="row g-4">
-                <!-- পাই চার্ট: Students by Batch -->
+                
                 <div class="col-md-4">
                     <div class="dashboard-card">
                         <h6 class="fw-bold text-dark mb-3">Students by Batch</h6>
@@ -257,7 +257,7 @@ foreach($grades as $g) {
                     </div>
                 </div>
 
-                <!-- বার চার্ট: Results Overview (By Grade) -->
+                <!-- Results Overview (By Grade) -->
                 <div class="col-md-4">
                     <div class="dashboard-card">
                         <h6 class="fw-bold text-dark mb-3">Results Overview (By Grade)</h6>
@@ -267,7 +267,7 @@ foreach($grades as $g) {
                     </div>
                 </div>
 
-                <!-- সিস্টেম ইনফো কার্ড (রিকোয়ার্ড মডার্ন লুক) -->
+                
                 <div class="col-md-4">
                     <div class="dashboard-card">
                         <h6 class="fw-bold text-dark mb-3">System Info</h6>
@@ -296,9 +296,9 @@ foreach($grades as $g) {
         </div>
     </div>
 
-    <!-- লাইভ ক্লক এবং চার্ট স্ক্রিপ্ট -->
+    
     <script>
-        // লাইভ ঘড়ির জাভাস্ক্রিপ্ট কোড
+        
         function updateClock() {
             const now = new Date();
             let hours = now.getHours();
@@ -313,7 +313,7 @@ foreach($grades as $g) {
         }
         setInterval(updateClock, 1000);
 
-        // ১. পাই-চার্ট (Students by Batch)
+        // pie chart (Students by Batch)
         const ctxPie = document.getElementById('batchPieChart').getContext('2d');
         new Chart(ctxPie, {
             type: 'pie',
@@ -332,7 +332,7 @@ foreach($grades as $g) {
             }
         });
 
-        // ২. বার-চার্ট (Results Overview)
+        // bar chart (Results Overview)
         const ctxBar = document.getElementById('gradeBarChart').getContext('2d');
         new Chart(ctxBar, {
             type: 'bar',
