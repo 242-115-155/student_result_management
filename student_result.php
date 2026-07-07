@@ -1,14 +1,14 @@
 <?php
 session_start();
 
-// ডাটাবেজ কানেকশন
+
 include 'db_connect.php';
 
-// ইউআরএল থেকে স্টুডেন্ট আইডি নেওয়া
+
 $student_id = isset($_GET['id']) ? mysqli_real_escape_string($conn, $_GET['id']) : '';
 
-// স্টুডেন্টের ব্যাচ ডিটেইলস এবং নাম বের করার কুয়েরি (সাইডবারে অ্যাক্টিভ স্টেট রাখার জন্য)
-$batch_param = "CSE-61"; // ডিফল্ট বা ফলব্যাক হিসেবে রাখা হলো
+
+$batch_param = "CSE-61"; 
 if (!empty($student_id)) {
     $student_info_query = "SELECT b.batch_name FROM student s JOIN batch b ON s.batch_id = b.batch_id WHERE s.student_id = '$student_id' LIMIT 1";
     $student_info_res = mysqli_query($conn, $student_info_query);
@@ -18,7 +18,7 @@ if (!empty($student_id)) {
     }
 }
 
-// রেজাল্ট ডেটা তুলে আনার কুয়েরি
+
 $sql = "SELECT * FROM result WHERE student_id='$student_id'";
 $result = mysqli_query($conn, $sql);
 
@@ -28,7 +28,7 @@ $gpa_result = mysqli_query($conn, $gpa_sql);
 $gpa_row = mysqli_fetch_assoc($gpa_result);
 $cgpa = round($gpa_row['cgpa'], 2);
 
-// সাইডবার লুপের জন্য ব্যাচ লিস্ট
+
 $batches_list = [
     ['id' => 'CSE-61', 'name' => '61 Batch'],
     ['id' => 'CSE-62', 'name' => '62 Batch'],
@@ -44,7 +44,7 @@ $batches_list = [
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Result</title>
     
-    <!-- বুটস্ট্র্যাপ ও ফন্ট-অসাম আইকন সিডিএন -->
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
@@ -56,7 +56,7 @@ $batches_list = [
         }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--body-bg); margin: 0; padding: 0; }
         
-        /* সাইডবার লেআউট ফিক্স */
+        
         .sidebar {
             width: 260px; height: 100vh; background-color: var(--sidebar-bg);
             position: fixed; top: 0; left: 0; padding-top: 20px; z-index: 1000;
@@ -70,25 +70,25 @@ $batches_list = [
         }
         .sidebar-menu li a:hover, .sidebar-menu li.active > a { background-color: var(--primary-blue); color: #fff; text-decoration: none; }
         
-        /* সাবমেনু স্টাইল */
+       
         .submenu { list-style: none; padding-left: 35px; margin-bottom: 10px; display: block; }
         .submenu li a { padding: 8px 16px; font-size: 14px; color: #a2b4c7; display: block; text-decoration: none; }
         .submenu li a:hover, .submenu li.active-sub a { color: #fff; font-weight: bold; }
         .menu-label { padding: 10px 24px; color: #647b9c; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
         
-        /* কন্টেন্ট এরিয়া ফিক্স */
+        
         .main-content { margin-left: 260px; min-height: 100vh; display: flex; flex-direction: column; background-color: var(--body-bg); }
         .topbar { background-color: var(--primary-blue); color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; height: 60px; box-sizing: border-box; }
         .wrapper { padding: 40px; flex: 1; }
         
-        /* টেবিল কন্টেইনার ও ডিজাইন */
+        
         .table-card { background: #fff; border-radius: 12px; border: 1px solid #eef2f5; box-shadow: 0 4px 12px rgba(0,0,0,0.02); padding: 25px; margin-top: 20px; }
         .table { width: 100%; margin-bottom: 0; border-collapse: collapse; }
         .table th { background-color: #f8f9fa; color: #495057; font-weight: 600; text-transform: uppercase; font-size: 12px; padding: 15px; border-bottom: 2px solid #dee2e6; text-align: left; }
         .table td { padding: 15px; vertical-align: middle; font-size: 14px; color: #333; border-bottom: 1px solid #dee2e6; text-align: left; }
         .table-bordered th, .table-bordered td { border: 1px solid #dee2e6; }
         
-        /* বাটন ও ব্রেডক্রাম্ব */
+        
         .btn-back { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; padding: 8px 20px; border-radius: 6px; text-decoration: none; }
         .breadcrumb { display: flex; flex-wrap: wrap; padding: 0; margin-bottom: 1rem; list-style: none; gap: 5px; font-size: 14px; }
         .breadcrumb-item + .breadcrumb-item::before { content: "/"; color: #6c757d; padding-right: 5px; }
@@ -99,7 +99,7 @@ $batches_list = [
 </head>
 <body>
 
-    <!-- বাম পাশের সাইডবার (ডিজাইন সেম রাখার জন্য) -->
+    
     <div class="sidebar">
         <div class="sidebar-brand">
             <div class="icon-container">
@@ -120,7 +120,7 @@ $batches_list = [
                 </a>
                 <ul class="submenu" id="viewResultsMenu">
                     <?php foreach($batches_list as $b) { 
-                        // স্টুডেন্টের নিজস্ব ব্যাচ হাইলাইট করার জন্য
+                        
                         $activeClass = (strpos($batch_param, $b['id']) !== false) ? 'active-sub' : '';
                     ?>
                         <li class="<?php echo $activeClass; ?>"><a href="batch_result.php?batch=<?php echo $b['id']; ?>"><i class="fa-solid fa-angle-right me-1"></i> <?php echo $b['id']; ?></a></li>
@@ -132,9 +132,9 @@ $batches_list = [
         </ul>
     </div>
 
-    <!-- ডান পাশের কন্টেন্ট এরিয়া -->
+    
     <div class="main-content">
-        <!-- টপ নেভিগেশন বার (Notification রিমুভড এবং ইউজার নেম সরাসরি 'Student') -->
+        
         <div class="topbar">
             <h5 class="m-0 fw-semibold"><i class="fa-solid fa-bars me-2"></i> Student Portal</h5>
             <div class="d-flex align-items-center gap-3">
@@ -153,13 +153,13 @@ $batches_list = [
         </div>
         
         <div class="wrapper">
-            <!-- হেডার ও ব্যাক বাটন -->
+            
             <div class="d-flex justify-content-between align-items-center mb-1" style="display: flex; justify-content: space-between; align-items: center;">
                 <h2 class="fw-bold m-0 text-dark" style="margin: 0; font-size: 28px;">Student Result</h2>
                 <a href="javascript:history.back()" class="btn btn-outline-secondary btn-back"><i class="fa-solid fa-arrow-left"></i> Back</a>
             </div>
             
-            <!-- ব্রেডক্রাম্ব নেভিগেশন -->
+            
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="student_dashboard.php">Home</a></li>
@@ -168,7 +168,7 @@ $batches_list = [
                 </ol>
             </nav>
 
-            <!-- সাদা বক্স কন্টেন্ট এরিয়া -->
+            
             <div class="table-card">
                 <h4 class="text-secondary mb-4" style="font-size: 18px; font-weight: 600;">
                     Student ID: <span class="text-dark"><?php echo htmlspecialchars($student_id); ?></span>
@@ -205,7 +205,7 @@ $batches_list = [
                     </tbody>
                 </table>
 
-                <!-- GPA / CGPA বক্স -->
+                
                 <div class="cgpa-box">
                     GPA / CGPA : <?php echo htmlspecialchars($cgpa); ?>
                 </div>
