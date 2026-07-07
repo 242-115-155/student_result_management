@@ -1,9 +1,9 @@
 <?php
 session_start();
-// ডাটাবেজ কানেকশন (যদি প্রয়োজন হয়)
+
 include 'db_connect.php';
 
-// সাইডবার লুপের জন্য ব্যাচ লিস্ট
+
 $batches_list = [
     ['id' => 'CSE-61', 'name' => '61 Batch'],
     ['id' => 'CSE-62', 'name' => '62 Batch'],
@@ -19,7 +19,7 @@ $batches_list = [
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Result</title>
     
-    <!-- বুটস্ট্র্যাপ ও ফন্ট-অসাম আইকন সিডিএন -->
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
@@ -31,7 +31,7 @@ $batches_list = [
         }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--body-bg); margin: 0; padding: 0; }
         
-        /* সাইডবার লেআউট */
+        
         .sidebar {
             width: 260px; height: 100vh; background-color: var(--sidebar-bg);
             position: fixed; top: 0; left: 0; padding-top: 20px; z-index: 1000;
@@ -45,25 +45,25 @@ $batches_list = [
         }
         .sidebar-menu li a:hover, .sidebar-menu li.active > a { background-color: var(--primary-blue); color: #fff; text-decoration: none; }
         
-        /* সাবমেনু স্টাইল */
+        
         .submenu { list-style: none; padding-left: 35px; margin-bottom: 10px; display: block; }
         .submenu li a { padding: 8px 16px; font-size: 14px; color: #a2b4c7; display: block; text-decoration: none; }
         .submenu li a:hover, .submenu li.active-sub a { color: #fff; font-weight: bold; }
         .menu-label { padding: 10px 24px; color: #647b9c; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
         
-        /* কন্টেন্ট এরিয়া */
+        
         .main-content { margin-left: 260px; min-height: 100vh; display: flex; flex-direction: column; background-color: var(--body-bg); }
         .topbar { background-color: var(--primary-blue); color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; height: 60px; box-sizing: border-box; }
         .wrapper { padding: 40px; flex: 1; }
         
-        /* সার্চ কার্ড ডিজাইন */
+        
         .search-card { background: #fff; border-radius: 12px; border: 1px solid #eef2f5; box-shadow: 0 4px 12px rgba(0,0,0,0.02); padding: 35px; margin-top: 20px; max-width: 600px; }
         .form-control:focus { box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15); border-color: var(--primary-blue); }
     </style>
 </head>
 <body>
 
-    <!-- বাম পাশের সাইডবার -->
+    
     <div class="sidebar">
         <div class="sidebar-brand">
             <div class="icon-container">
@@ -93,9 +93,9 @@ $batches_list = [
         </ul>
     </div>
 
-    <!-- ডান পাশের কন্টেন্ট এরিয়া -->
+    
     <div class="main-content">
-        <!-- টপ নেভিগেশন বার (Notification রিমুভড এবং ইউজার নেম সরাসরি 'Student') -->
+        
         <div class="topbar">
             <h5 class="m-0 fw-semibold"><i class="fa-solid fa-bars me-2"></i> Student Portal</h5>
             <div class="d-flex align-items-center gap-3">
@@ -117,7 +117,7 @@ $batches_list = [
             <div class="search-card mx-auto">
                 <h2 class="text-center fw-bold text-dark mb-4" style="font-size: 24px;">Search Student Result</h2>
                 
-                <!-- সার্চ ফর্ম -->
+                
                 <form action="student_result.php" method="GET">
                     <div class="mb-4">
                         <label for="student_id" class="form-label fw-semibold text-secondary">Student ID</label>
