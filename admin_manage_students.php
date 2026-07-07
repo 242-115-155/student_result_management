@@ -1,5 +1,5 @@
 <?php
-// এখানে session_start() রাখার প্রয়োজন নেই, কারণ মূল dashboard-এই সেশন স্টার্ট করা আছে।
+
 include("db_connect.php");
 
 $search = "";
@@ -31,7 +31,7 @@ $sql .= " ORDER BY student.batch_id ASC, student.student_id ASC";
 $result = mysqli_query($conn, $sql);
 ?>
 
-<!-- ড্যাশবোর্ডের ভেতরে সুন্দর দেখানোর জন্য কার্ডের মার্জিন ও শ্যাডো কিছুটা অ্যাডজাস্ট করা হলো -->
+
 <div class="card border-0 shadow-sm bg-white rounded-3">
     <div class="card-header bg-primary text-white py-3 fs-5 fw-bold d-flex align-items-center">
         <i class="fa-solid fa-users me-2"></i> Manage Students
@@ -43,14 +43,14 @@ $result = mysqli_query($conn, $sql);
                 <a href="admin_add_student.php" class="btn btn-success px-3 rounded-2">
                     <i class="fa-solid fa-plus me-1"></i> Add Student
                 </a>
-                <!-- ড্যাশবোর্ড বাটনটি রিলোড এড়াতে সরাসরি ড্যাশবোর্ড পেজের লিংকে রিডাইরেক্ট করবে -->
+                
                 <a href="admin_dashboard.php" class="btn btn-secondary px-3 rounded-2">
                     <i class="fa-solid fa-house me-1"></i> Dashboard
                 </a>
             </div>
 
             <div class="col-md-6">
-                <!-- AJAX এর সাথে সার্চ কাজ করার জন্য এখানে ID যোগ করা হয়েছে -->
+                
                 <form id="student-search-form" method="GET">
                     <div class="input-group">
                         <input type="text" name="search" class="form-control" placeholder="Search by ID / Name / Email" value="<?php echo htmlspecialchars($search); ?>">
@@ -114,7 +114,7 @@ $result = mysqli_query($conn, $sql);
     </div>
 </div>
 
-<!-- সার্চ করার সময় যাতে পুরো পেজ রিফ্রেশ না হয়ে যায়, তার জন্য AJAX স্ক্রিপ্ট -->
+
 <script>
     $('#student-search-form').on('submit', function(e) {
         e.preventDefault();
