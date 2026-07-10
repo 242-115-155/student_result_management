@@ -358,12 +358,14 @@ if ($grade_chart_res) {
             </div>
 
             
-            <footer class="text-center text-muted mt-5 small py-3 border-top bg-white rounded">
-                <p class="m-0">© 2026 <strong>Metropolitan University</strong>. All rights reserved.</p>
-                <small class="text-muted">Developed by <strong>Maliha Tabassum Hridila</strong></small>
-            </footer>
+           <!-- Footer Area -->
+    <footer class="bg-white py-3 border-top mt-5 small text-muted">
+        <div class="container-fluid px-5 d-flex justify-content-between">
+            <span>© <?php echo date('Y'); ?> <a href="#" class="text-decoration-none">Metropolitan University</a></span>
+            <span>© <?php echo date('Y'); ?> <a href="#" class="text-decoration-none">Metropolitan University</a>. All rights reserved.</span>
+            <span>Developed by Maliha Tabassum Hridila</span>
         </div>
-    </div>
+    </footer>
 
     <!-- Bootstrap JS + Chart.js Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
