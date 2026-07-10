@@ -81,13 +81,13 @@ foreach ($batch_data as $row) {
     
     <style>
         body { background-color: #f3f4f9; font-family: 'Segoe UI', Arial, sans-serif; }
-        .navbar-custom { background-color: #0b5ed7; color: white; padding: 12px 25px; }
-        .sidebar { height: calc(100vh - 55px); background: #1a233a; color: #a1b0cb; width: 260px; position: fixed; padding-top: 15px; }
+        .navbar-custom { background-color: #0b5ed7; color: white; padding: 10px 15px; position: fixed; top: 0; left: 0; right: 0; z-index: 1000; }
+        .sidebar { background: #1a233a; color: #a1b0cb; position: fixed; top: 55px; left: 0; width: 250px; height: calc(100vh - 55px); overflow-y: auto; }
         .sidebar .university-logo { padding: 10px 20px; border-bottom: 1px solid #283554; }
         .sidebar .menu-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #596b8c; padding: 20px 20px 10px; font-weight: bold; }
         .sidebar a { color: #a1b0cb; text-decoration: none; padding: 12px 20px; display: block; font-size: 14px; transition: all 0.2s; cursor: pointer; }
         .sidebar a:hover, .sidebar a.active { background: #0d6efd; color: white; border-radius: 4px; margin: 0 10px; }
-        .main-content { margin-left: 260px; padding: 30px; min-height: calc(100vh - 110px); }
+        .main-content { margin-top: 55px; margin-left: 260px; }
         .card-stat { border: none; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.04); transition: transform 0.2s; background: white;}
         .card-stat:hover { transform: translateY(-3px); }
         .stat-icon { width: 55px; height: 55px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
@@ -314,6 +314,7 @@ foreach ($batch_data as $row) {
     <!-- Footer Area -->
     <footer class="bg-white py-3 border-top mt-5 small text-muted">
         <div class="container-fluid px-5 d-flex justify-content-between">
+            <span>© <?php echo date('Y'); ?> <a href="#" class="text-decoration-none">Metropolitan University</a></span>
             <span>© <?php echo date('Y'); ?> <a href="#" class="text-decoration-none">Metropolitan University</a>. All rights reserved.</span>
             <span>Developed by Maliha Tabassum Hridila <i class="fa-solid fa-heart text-primary"></i></span>
         </div>
@@ -361,7 +362,7 @@ foreach ($batch_data as $row) {
         // Event triggers for 'Manage Teachers'
         $(document).on('click', '#nav-teachers, #action-manage-teachers', function(e) {
         e.preventDefault();
-        updateActiveTab('#nav-teachers');
+        updateActiveTab('#nav-teachers'); 
         loadPageContent('admin_manage_teachers.php'); 
         });
 
@@ -369,7 +370,7 @@ foreach ($batch_data as $row) {
         $(document).on('click', '#nav-courses, #action-manage-courses', function(e) {
         e.preventDefault();
         updateActiveTab('#nav-courses'); 
-        loadPageContent('admin_manage_courses.php');
+        loadPageContent('admin_manage_courses.php'); 
         });
 
         // Event triggers for 'Manage Batches'
@@ -417,7 +418,7 @@ new Chart(ctxLine, {
     options: {
         responsive: true,
         plugins: {
-            legend: { display: false }
+            legend: { display: false } 
         },
         scales: {
             y: {
