@@ -256,7 +256,15 @@ foreach($grades as $g) {
                         </div>
                     </div>
                 </div>
-
+                
+                <!-- Footer Area -->
+    <footer class="bg-white py-3 border-top mt-5 small text-muted">
+        <div class="container-fluid px-5 d-flex justify-content-between">
+            <span>© <?php echo date('Y'); ?> <a href="#" class="text-decoration-none">Metropolitan University</a></span>
+            <span>© <?php echo date('Y'); ?> <a href="#" class="text-decoration-none">Metropolitan University</a>. All rights reserved.</span>
+            <span>Developed by Maliha Tabassum Hridila</span>
+        </div>
+    </footer>
                 <!-- Results Overview (By Grade) -->
                 <div class="col-md-4">
                     <div class="dashboard-card">
