@@ -22,7 +22,7 @@ $total_results = $total_results_res->fetch_row()[0];
 $total_teachers_res = $conn->query("SELECT COUNT(*) FROM teacher");
 $total_teachers = $total_teachers_res->fetch_row()[0];
 
-// গ্রেড ডিস্ট্রিবিউশন কাউন্ট করার কুয়েরি
+
 $grades_to_check = ['A+', 'A', 'A-', 'B+', 'B', 'C', 'D', 'F'];
 $grade_counts = [];
 
@@ -31,7 +31,7 @@ foreach ($grades_to_check as $g) {
     $grade_counts[$g] = $g_res ? $g_res->fetch_row()[0] : 0;
 }
 
-// জাভাস্ক্রিপ্টে ব্যবহারের জন্য ডেটা প্রস্তুত করা
+
 $js_grade_labels = json_encode(array_keys($grade_counts));
 $js_grade_data = json_encode(array_values($grade_counts));
 
