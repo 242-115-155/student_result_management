@@ -81,13 +81,35 @@ foreach ($batch_data as $row) {
     
     <style>
         body { background-color: #f3f4f9; font-family: 'Segoe UI', Arial, sans-serif; }
-        .navbar-custom { background-color: #0b5ed7; color: white; padding: 12px 25px; }
-        .sidebar { height: calc(100vh - 55px); background: #1a233a; color: #a1b0cb; width: 260px; position: fixed; padding-top: 15px; }
+        .navbar-custom { 
+    background-color: #0b5ed7; 
+    color: white; 
+    padding: 12px 25px; 
+    position: fixed; 
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+        .sidebar { 
+    height: 100vh; 
+    background: #1a233a; 
+    color: #a1b0cb; 
+    width: 260px; 
+    position: fixed; 
+    top: 0; 
+    padding-top: 70px; 
+    z-index: 999;
+}
         .sidebar .university-logo { padding: 10px 20px; border-bottom: 1px solid #283554; }
         .sidebar .menu-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #596b8c; padding: 20px 20px 10px; font-weight: bold; }
         .sidebar a { color: #a1b0cb; text-decoration: none; padding: 12px 20px; display: block; font-size: 14px; transition: all 0.2s; cursor: pointer; }
         .sidebar a:hover, .sidebar a.active { background: #0d6efd; color: white; border-radius: 4px; margin: 0 10px; }
-        .main-content { margin-left: 260px; padding: 30px; min-height: calc(100vh - 110px); }
+        .main-content { 
+    margin-left: 260px; 
+    padding-top: 80px; 
+    padding-left: 30px;
+    padding-right: 30px;
+}
         .card-stat { border: none; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.04); transition: transform 0.2s; background: white;}
         .card-stat:hover { transform: translateY(-3px); }
         .stat-icon { width: 55px; height: 55px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
