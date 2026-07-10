@@ -22,7 +22,7 @@ $total_results = $total_results_res->fetch_row()[0];
 $total_teachers_res = $conn->query("SELECT COUNT(*) FROM teacher");
 $total_teachers = $total_teachers_res->fetch_row()[0];
 
-// গ্রেড ডিস্ট্রিবিউশন কাউন্ট করার কুয়েরি
+
 $grades_to_check = ['A+', 'A', 'A-', 'B+', 'B', 'C', 'D', 'F'];
 $grade_counts = [];
 
@@ -31,7 +31,7 @@ foreach ($grades_to_check as $g) {
     $grade_counts[$g] = $g_res ? $g_res->fetch_row()[0] : 0;
 }
 
-// জাভাস্ক্রিপ্টে ব্যবহারের জন্য ডেটা প্রস্তুত করা
+
 $js_grade_labels = json_encode(array_keys($grade_counts));
 $js_grade_data = json_encode(array_values($grade_counts));
 
@@ -314,6 +314,7 @@ foreach ($batch_data as $row) {
     <!-- Footer Area -->
     <footer class="bg-white py-3 border-top mt-5 small text-muted">
         <div class="container-fluid px-5 d-flex justify-content-between">
+            <span>© <?php echo date('Y'); ?> <a href="#" class="text-decoration-none">Metropolitan University</a></span>
             <span>© <?php echo date('Y'); ?> <a href="#" class="text-decoration-none">Metropolitan University</a>. All rights reserved.</span>
             <span>Developed by Maliha Tabassum Hridila <i class="fa-solid fa-heart text-primary"></i></span>
         </div>
@@ -361,15 +362,15 @@ foreach ($batch_data as $row) {
         // Event triggers for 'Manage Teachers'
         $(document).on('click', '#nav-teachers, #action-manage-teachers', function(e) {
         e.preventDefault();
-        updateActiveTab('#nav-teachers'); // সাইডবারে টিচার ট্যাব একটিভ করবে
+        updateActiveTab('#nav-teachers'); 
         loadPageContent('admin_manage_teachers.php'); 
         });
 
         // Event triggers for 'Manage Courses'
         $(document).on('click', '#nav-courses, #action-manage-courses', function(e) {
         e.preventDefault();
-        updateActiveTab('#nav-courses'); // সাইডবারে কোর্স ট্যাব একটিভ করবে
-        loadPageContent('admin_manage_courses.php'); // ড্যাশবোর্ডের ভেতর কোর্স পেজ লোড করবে
+        updateActiveTab('#nav-courses'); 
+        loadPageContent('admin_manage_courses.php'); 
         });
 
         // Event triggers for 'Manage Batches'
@@ -402,13 +403,13 @@ $       (document).on('click', '#nav-results', function(e) {
 
         const ctxLine = document.getElementById('resultsLineChart').getContext('2d');
 new Chart(ctxLine, {
-    type: 'bar', // গ্রেড ডিস্ট্রিবিউশন বার চার্টে দেখতে বেশি সুন্দর লাগে, চাইলে 'line' ও রাখতে পারেন
+    type: 'bar', 
     data: {
-        labels: <?php echo $js_grade_labels; ?>, // ডাটাবেজ থেকে আসা গ্রেড (A+, A, A-...)
+        labels: <?php echo $js_grade_labels; ?>, 
         datasets: [{
             label: 'Total Students',
-            data: <?php echo $js_grade_data; ?>, // ডাটাবেজের আসল স্টুডেন্ট সংখ্যা
-            backgroundColor: 'rgba(13, 110, 253, 0.4)', // সুন্দর নীল রঙ
+            data: <?php echo $js_grade_data; ?>, 
+            backgroundColor: 'rgba(13, 110, 253, 0.4)', 
             borderColor: 'rgba(13, 110, 253, 1)',
             borderWidth: 2,
             borderRadius: 5
@@ -417,13 +418,13 @@ new Chart(ctxLine, {
     options: {
         responsive: true,
         plugins: {
-            legend: { display: false } // লিজেন্ড হাইড রাখলাম দেখতে ক্লিন লাগবে
+            legend: { display: false } 
         },
         scales: {
             y: {
                 beginAtZero: true,
                 ticks: {
-                    stepSize: 1 // ১, ২, ৩ করে সংখ্যা বাড়বে
+                    stepSize: 1 
                 }
             }
         }
