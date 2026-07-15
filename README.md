@@ -167,10 +167,13 @@ student_result_management/
 ![Home](https://github.com/242-115-155/student_result_management/blob/main/screenshorts/home.png)
 
 ### Admin Login
-![Admin Login](https://github.com/242-115-155/student_result_management/blob/main/screenshorts/teacher_login.png)
+![Admin Login](https://github.com/242-115-155/student_result_management/blob/main/screenshorts/admin_login.png)
 
 ### Admin Dashboard
 ![Admin Dashboard](https://github.com/242-115-155/student_result_management/blob/main/screenshorts/admin_dashboard.png)
+
+### Teacher Login
+![Teacher Login](https://github.com/242-115-155/student_result_management/blob/main/screenshorts/teacher_login.png)
 
 ### Teacher Dashboard
 ![Teacher Dashboard](https://github.com/242-115-155/student_result_management/blob/main/screenshorts/teacher_dashboard.png)
