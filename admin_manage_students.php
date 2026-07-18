@@ -1,5 +1,4 @@
 <?php
-
 include("db_connect.php");
 
 $search = "";
@@ -39,18 +38,13 @@ $result = mysqli_query($conn, $sql);
 
     <div class="card-body p-4">
         <div class="row mb-4 align-items-center">
-            <div class="col-md-6 d-flex gap-2 mb-3 mb-md-0">
-                <a href="admin_add_student.php" class="btn btn-success px-3 rounded-2">
+                <a href="#" onclick="loadPageContent('admin_add_student.php'); return false;" class="btn btn-success">
                     <i class="fa-solid fa-plus me-1"></i> Add Student
-                </a>
-                
-                <a href="admin_dashboard.php" class="btn btn-secondary px-3 rounded-2">
-                    <i class="fa-solid fa-house me-1"></i> Dashboard
                 </a>
             </div>
 
             <div class="col-md-6">
-                
+                <!-- AJAX এর সাথে সার্চ কাজ করার জন্য এখানে ID যোগ করা হয়েছে -->
                 <form id="student-search-form" method="GET">
                     <div class="input-group">
                         <input type="text" name="search" class="form-control" placeholder="Search by ID / Name / Email" value="<?php echo htmlspecialchars($search); ?>">
@@ -87,12 +81,8 @@ $result = mysqli_query($conn, $sql);
                                 <td class="text-center"><span class="badge bg-secondary bg-opacity-10 text-secondary border border-secondary border-opacity-25 px-2 py-1"><?php echo htmlspecialchars($row['batch_name']); ?></span></td>
                                 <td class="text-center">
                                     <div class="d-flex justify-content-center gap-1">
-                                        <a href="admin_edit_student.php?student_id=<?php echo urlencode($row['student_id']); ?>" class="btn btn-warning btn-sm text-dark px-2">
-                                            <i class="fa-regular fa-pen-to-square"></i> Edit
-                                        </a>
-                                        <a href="admin_delete_student.php?student_id=<?php echo urlencode($row['student_id']); ?>" class="btn btn-danger btn-sm px-2" onclick="return confirm('Are you sure you want to delete this student?')">
-                                            <i class="fa-regular fa-trash-can"></i> Delete
-                                        </a>
+                                        <a href="#" onclick="loadPageContent('admin_edit_student.php?student_id=<?php echo $row['student_id']; ?>'); return false;" class="btn btn-warning btn-sm">Edit</a>
+                                        <a href="#" onclick="loadPageContent('admin_delete_student.php?student_id=<?php echo $row['student_id']; ?>'); return false;" class="btn btn-danger btn-sm">Delete</a>
                                     </div>
                                 </td>
                             </tr>
