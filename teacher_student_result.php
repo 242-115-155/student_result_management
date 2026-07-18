@@ -1,21 +1,17 @@
 <?php
 include 'db_connect.php';
 
-
 $student_id = isset($_GET['id']) ? $_GET['id'] : '';
 $batch = isset($_GET['batch']) ? $_GET['batch'] : '';
-
 
 $student_sql = "SELECT * FROM student WHERE student_id='$student_id'";
 $student_result = mysqli_query($conn, $student_sql);
 $student_data = mysqli_fetch_assoc($student_result);
 
-
 $result_sql = "SELECT * FROM result WHERE student_id='$student_id'"; 
 $result_query = mysqli_query($conn, $result_sql);
 
-
-$gpa_sql = "SELECT * FROM student WHERE student_id='$student_id'";
+$gpa_sql = "SELECT AVG(grade_point) as calculated_cgpa FROM result WHERE student_id='$student_id'";
 $gpa_query = mysqli_query($conn, $gpa_sql);
 $gpa_data = mysqli_fetch_assoc($gpa_query);
 ?>
@@ -39,7 +35,6 @@ $gpa_data = mysqli_fetch_assoc($gpa_query);
         }
         body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: var(--body-bg); margin: 0; }
         
-        
         .sidebar { width: 260px; height: 100vh; background-color: var(--sidebar-bg); position: fixed; top: 0; left: 0; padding-top: 20px; z-index: 1000; }
         .sidebar-brand { padding: 10px 24px; color: #fff; display: flex; align-items: center; gap: 12px; }
         .sidebar-menu { list-style: none; padding: 20px 12px; margin: 0; }
@@ -47,12 +42,10 @@ $gpa_data = mysqli_fetch_assoc($gpa_query);
         .sidebar-menu li a:hover, .sidebar-menu li.active > a { background-color: var(--primary-blue); color: #fff; }
         .menu-label { padding: 10px 24px; color: #506784; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
         
-        
         .main-content { margin-left: 260px; min-height: 100vh; display: flex; flex-direction: column; }
         .topbar { background-color: #0b5ed7; color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; height: 60px; }
         .wrapper { padding: 30px; flex: 1; }
-        
-        
+    
         .result-container-box { 
             background: white; 
             border-radius: 12px; 
@@ -60,7 +53,6 @@ $gpa_data = mysqli_fetch_assoc($gpa_query);
             border: 1px solid #eef2f5; 
             box-shadow: 0 4px 12px rgba(0,0,0,0.02); 
         }
-        
         
         .result-table thead th {
             background-color: #f8f9fa !important;
@@ -78,7 +70,7 @@ $gpa_data = mysqli_fetch_assoc($gpa_query);
             font-size: 14px;
         }
         
-        
+        /* GPA / CGPA বক্স স্টাইল */
         .gpa-box {
             font-size: 16px;
             font-weight: 600;
@@ -93,7 +85,6 @@ $gpa_data = mysqli_fetch_assoc($gpa_query);
 </head>
 <body>
 
-    
     <div class="sidebar">
         <div class="sidebar-brand">
             <i class="fa-solid fa-graduation-cap text-white fs-3 bg-primary p-2 rounded-circle"></i>
@@ -114,9 +105,9 @@ $gpa_data = mysqli_fetch_assoc($gpa_query);
         </ul>
     </div>
 
-    
+
     <div class="main-content">
-        
+       
         <div class="topbar">
             <div class="d-flex align-items-center gap-2">
                 <i class="fa-solid fa-bars fs-5" style="cursor:pointer;"></i>
@@ -129,16 +120,13 @@ $gpa_data = mysqli_fetch_assoc($gpa_query);
         </div>
 
        <div class="wrapper">
-            
+           
             <div class="d-flex justify-content-between align-items-center mb-1" style="display: flex; justify-content: space-between; align-items: center;">
                 <h2 class="fw-bold m-0 text-dark" style="margin: 0; font-size: 28px;">Student Result</h2>
                 <a href="javascript:history.back()" class="btn btn-outline-secondary btn-back"><i class="fa-solid fa-arrow-left"></i> Back</a>
             </div>
             
-
-            
             <div class="result-container-box">
-                
                 
                 <div class="mb-4">
                     <h5 class="fw-bold text-dark mb-1">Student ID: <?php echo htmlspecialchars($student_id); ?></h5>
@@ -147,7 +135,6 @@ $gpa_data = mysqli_fetch_assoc($gpa_query);
                     <?php } ?>
                 </div>
 
-                
                 <div class="table-responsive">
                     <table class="table result-table table-bordered table-striped m-0">
                         <thead>
@@ -181,11 +168,10 @@ $gpa_data = mysqli_fetch_assoc($gpa_query);
                     </table>
                 </div>
 
-                
+
                 <div class="mt-4 pt-3 border-top">
                     <div class="gpa-box">
-                        
-                        GPA / CGPA : <?php echo isset($gpa_data['gpa']) ? htmlspecialchars($gpa_data['gpa']) : (isset($gpa_data['cgpa']) ? htmlspecialchars($gpa_data['cgpa']) : '3.50'); ?>
+                        GPA / CGPA : <?php echo isset($gpa_data['calculated_cgpa']) ? number_format($gpa_data['calculated_cgpa'], 2) : 'N/A'; ?>
                     </div>
                 </div>
 
