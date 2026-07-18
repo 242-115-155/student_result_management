@@ -75,7 +75,7 @@ if (!isset($_SERVER['HTTP_X_REQUESTED_WITH'])):
 <body>
 <?php endif; ?>
 
-<!-- main card interface -->
+
 <div class="card border-0 shadow-sm bg-white rounded-3">
     <div class="card-header bg-primary text-white py-3 fs-5 fw-bold">
         Manage Results
@@ -83,10 +83,10 @@ if (!isset($_SERVER['HTTP_X_REQUESTED_WITH'])):
 
     <div class="card-body p-4">
         <div class="row mb-3 align-items-center">
-            <!-- button section -->
+            
             <div class="col-md-4 d-flex gap-2 mb-3 mb-md-0">
-                <a href="admin_add_result.php" class="btn btn-success px-3">
-                    + Add Result
+                <a href="#" onclick="loadPageContent('admin_add_result.php'); return false;" class="btn btn-success">
+                    <i class="fa-solid fa-plus me-1"></i> Add Result
                 </a>
                 <a href="admin_dashboard.php" class="btn btn-secondary px-3">
                     Dashboard
@@ -95,7 +95,7 @@ if (!isset($_SERVER['HTTP_X_REQUESTED_WITH'])):
 
             <div class="col-md-4"></div>
 
-            <!-- search section -->
+            
             <div class="col-md-4">
                 <form id="result-search-form" method="GET">
                     <div class="input-group">
@@ -108,7 +108,7 @@ if (!isset($_SERVER['HTTP_X_REQUESTED_WITH'])):
             </div>
         </div>
 
-        <!-- responsive table -->
+        
         <div class="table-responsive">
             <table class="table table-bordered table-striped table-hover align-middle m-0 text-center">
                 <thead>
@@ -143,10 +143,10 @@ if (!isset($_SERVER['HTTP_X_REQUESTED_WITH'])):
                                 <td class="fw-semibold text-primary"><?php echo htmlspecialchars($row['grade_point']); ?></td>
                                 <td>
                                     <div class="d-flex justify-content-center gap-1">
-                                        <a href="admin_edit_result.php?id=<?php echo $row['result_id']; ?>" class="btn btn-warning btn-sm">
+                                        <a href="#" onclick="loadPageContent('admin_edit_result.php?id=<?php echo $row['result_id']; ?>'); return false;" class="btn btn-warning btn-sm px-2">
                                             Edit
                                         </a>
-                                        <a href="admin_delete_result.php?id=<?php echo $row['result_id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Delete this result?');">
+                                        <a href="#" onclick="loadPageContent('admin_delete_result.php?id=<?php echo $row['result_id']; ?>'); return false;" class="btn btn-danger btn-sm px-2">
                                             Delete
                                         </a>
                                     </div>
@@ -170,7 +170,7 @@ if (!isset($_SERVER['HTTP_X_REQUESTED_WITH'])):
     </div>
 </div>
 
-<!-- AJAX search script -->
+
 <script>
     $('#result-search-form').on('submit', function(e) {
         e.preventDefault();
