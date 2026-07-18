@@ -5,10 +5,14 @@ include 'db_connect.php';
 
 if (isset($_POST['student_id'])) {
     $student_id  = $_POST['student_id'];
+    $semester_id = $_POST['semester_id'];
     $course_code = $_POST['course_code'];
+    $course_name = $_POST['course_name'];
     $marks       = $_POST['marks'];
+    $grade       = $_POST['grade'];
+    $grade_point = $_POST['grade_point'];
 
-    $sql = "INSERT INTO result (student_id, course_code, marks) VALUES ('$student_id', '$course_code', '$marks')";
+    $sql = "INSERT INTO result (student_id, semester_id, course_code, course_name, marks, grade, grade_point) VALUES ('$student_id', '$semester_id', '$course_code', '$course_name', '$marks', '$grade', '$grade_point')";
     if (mysqli_query($conn, $sql)) {
         echo "<script>alert('Result Added Successfully');</script>";
     } else {
@@ -36,27 +40,23 @@ if (isset($_POST['student_id'])) {
             --success-green: #198754;
         }
         body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: var(--body-bg); margin: 0; }
-        
-        /* sidebar design */
+
         .sidebar { width: 260px; height: 100vh; background-color: var(--sidebar-bg); position: fixed; top: 0; left: 0; padding-top: 20px; z-index: 1000; }
         .sidebar-brand { padding: 10px 24px; color: #fff; display: flex; align-items: center; gap: 12px; }
         .sidebar-menu { list-style: none; padding: 20px 12px; margin: 0; }
         .sidebar-menu li a { display: flex; align-items: center; gap: 15px; padding: 12px 16px; color: #a2b4c7; text-decoration: none; border-radius: 8px; font-weight: 500; transition: 0.3s; margin-bottom: 5px; }
         .sidebar-menu li a:hover, .sidebar-menu li.active > a { background-color: var(--primary-blue); color: #fff; }
         .menu-label { padding: 10px 24px; color: #506784; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
-        
-        /* main layout */
+
         .main-content { margin-left: 260px; min-height: 100vh; display: flex; flex-direction: column; }
         .topbar { background-color: #0b5ed7; color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; height: 60px; }
         .wrapper { padding: 30px; flex: 1; }
-        
-        /* form card design */
+
         .form-card { background: white; border-radius: 12px; padding: 30px; border: 1px solid #eef2f5; box-shadow: 0 4px 12px rgba(0,0,0,0.01); max-width: 700px; margin: 0 auto; }
         .form-control { border-radius: 8px; padding: 10px 15px; border: 1px solid #ced4da; font-size: 14px; }
         .form-control:focus { border-color: var(--success-green); box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.15); }
         .form-label { font-weight: 600; color: #495057; font-size: 14px; margin-bottom: 8px; }
 
-        /* system info table style */
         .sys-card { background: white; border-radius: 12px; padding: 20px; border: 1px solid #eef2f5; box-shadow: 0 4px 12px rgba(0,0,0,0.01); max-width: 700px; margin: 20px auto 0 auto; }
         .sys-info-table td { padding: 10px 8px; border-bottom: 1px solid #f1f4f8; font-size: 14px; }
         .sys-info-table tr:last-child td { border-bottom: none; }
@@ -64,7 +64,7 @@ if (isset($_POST['student_id'])) {
 </head>
 <body>
 
-    <!-- left side modern sidebar (Add Result menu active) -->
+    
     <div class="sidebar">
         <div class="sidebar-brand">
             <i class="fa-solid fa-graduation-cap text-white fs-3 bg-primary p-2 rounded-circle"></i>
@@ -85,9 +85,8 @@ if (isset($_POST['student_id'])) {
         </ul>
     </div>
 
-    <!-- right side main content area -->
     <div class="main-content">
-        <!-- topbar -->
+     
         <div class="topbar">
             <div class="d-flex align-items-center gap-2">
                 <i class="fa-solid fa-bars fs-5" style="cursor:pointer;"></i>
@@ -113,13 +112,32 @@ if (isset($_POST['student_id'])) {
                     </div>
 
                     <div class="mb-3">
+                        <label class="form-label">Semester ID</label>
+                        <input type="text" name="semester_id" class="form-control" placeholder="Semester ID" required>
+                    </div>
+
+                    <div class="mb-3">
                         <label class="form-label">Course Code</label>
                         <input type="text" name="course_code" class="form-control" placeholder="Course Code" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Course Name</label>
+                        <input type="text" name="course_name" class="form-control" placeholder="Course Name" required>
                     </div>
 
                     <div class="mb-4">
                         <label class="form-label">Marks</label>
                         <input type="number" name="marks" class="form-control" placeholder="Marks" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label">Grade</label>
+                        <input type="text" name="grade" class="form-control" placeholder="Grade" required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label">Grade Point</label>
+                        <input type="number" name="grade_point" class="form-control" placeholder="Grade Point" required>
                     </div>
 
                     <div class="text-end">
