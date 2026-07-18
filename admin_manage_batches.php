@@ -53,17 +53,17 @@ if (!isset($_SERVER['HTTP_X_REQUESTED_WITH'])):
 
     <div class="card-body p-4">
         <div class="row mb-3 align-items-center">
-            <!-- button section -->
+            
             <div class="col-md-6 d-flex gap-2 mb-3 mb-md-0">
-                <a href="admin_add_batch.php" class="btn btn-success px-3">
-                    + Add Batch
+                <a href="#" onclick="loadPageContent('admin_add_batch.php'); return false;" class="btn btn-success">
+                    <i class="fa-solid fa-plus me-1"></i> Add Batch
                 </a>
                 <a href="admin_dashboard.php" class="btn btn-dark px-3">
                     Dashboard
                 </a>
             </div>
 
-            <!-- search section -->
+            
             <div class="col-md-6">
                 <form id="batch-search-form" method="GET">
                     <div class="input-group">
@@ -76,7 +76,7 @@ if (!isset($_SERVER['HTTP_X_REQUESTED_WITH'])):
             </div>
         </div>
 
-        <!-- responsive table -->
+       
         <div class="table-responsive">
             <table class="table table-bordered table-striped table-hover align-middle m-0 text-center">
                 <thead>
@@ -96,10 +96,10 @@ if (!isset($_SERVER['HTTP_X_REQUESTED_WITH'])):
                                 <td class="fw-bold"><?php echo htmlspecialchars($row['batch_name']); ?></td>
                                 <td>
                                     <div class="d-flex justify-content-center gap-1">
-                                        <a href="admin_edit_batch.php?id=<?php echo $row['batch_id']; ?>" class="btn btn-warning btn-sm px-3">
+                                        <a href="#" onclick="loadPageContent('admin_edit_batch.php?id=<?php echo $row['batch_id']; ?>'); return false;" class="btn btn-warning btn-sm px-2">
                                             Edit
                                         </a>
-                                        <a href="admin_delete_batch.php?id=<?php echo $row['batch_id']; ?>" class="btn btn-danger btn-sm px-3" onclick="return confirm('Are you sure you want to delete this batch?');">
+                                        <a href="#" onclick="loadPageContent('admin_delete_batch.php?id=<?php echo $row['batch_id']; ?>'); return false;" class="btn btn-danger btn-sm px-3" onclick="return confirm('Are you sure you want to delete this batch?');">
                                             Delete
                                         </a>
                                     </div>
@@ -123,7 +123,6 @@ if (!isset($_SERVER['HTTP_X_REQUESTED_WITH'])):
     </div>
 </div>
 
-<!-- AJAX search script -->
 <script>
     $('#batch-search-form').on('submit', function(e) {
         e.preventDefault();
