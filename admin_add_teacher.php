@@ -1,172 +1,84 @@
 <?php
 session_start();
-
-if(!isset($_SESSION['admin']))
-{
-    header("Location: admin_login.php");
-    exit();
-}
-
 include("db_connect.php");
 
-$msg="";
+$message = "";
 
-if(isset($_POST['save']))
-{
-    $teacher_name=mysqli_real_escape_string($conn,$_POST['teacher_name']);
-    $designation=mysqli_real_escape_string($conn,$_POST['designation']);
-    $email=mysqli_real_escape_string($conn,$_POST['email']);
-    $password=mysqli_real_escape_string($conn,$_POST['password']);
+if (isset($_POST['add_teacher'])) {
+    $teacher_name = mysqli_real_escape_string($conn, $_POST['teacher_name']);
+    $designation  = mysqli_real_escape_string($conn, $_POST['designation']);
+    $email        = mysqli_real_escape_string($conn, $_POST['email']);
+    $password     = mysqli_real_escape_string($conn, $_POST['password']);
 
-    $check=mysqli_query($conn,"SELECT * FROM teacher WHERE email='$email'");
+    $check = mysqli_query($conn, "SELECT * FROM teacher WHERE email='$email'");
 
-    if(mysqli_num_rows($check)>0)
-    {
-        $msg="<div class='alert alert-danger'>Email already exists!</div>";
-    }
-    else
-    {
-        $insert=mysqli_query($conn,"INSERT INTO teacher(teacher_name,designation,email,password)
-        VALUES('$teacher_name','$designation','$email','$password')");
+    if (mysqli_num_rows($check) > 0) {
+        $message = "<div class='alert alert-danger'>Email already exists!</div>";
+    } else {
+        $insert = mysqli_query($conn, "INSERT INTO teacher(teacher_name, designation, email, password) 
+                                       VALUES('$teacher_name', '$designation', '$email', '$password')");
 
-        if($insert)
-        {
-            $msg="<div class='alert alert-success'>
-            Teacher Added Successfully.
-            </div>";
-        }
-        else
-        {
-            $msg="<div class='alert alert-danger'>
-            Failed to Add Teacher.
-            </div>";
+        if ($insert) {
+            $message = "<div class='alert alert-success'>Teacher Added Successfully.</div>";
+        } else {
+            $message = "<div class='alert alert-danger'>Failed to Add Teacher: " . mysqli_error($conn) . "</div>";
         }
     }
 }
 ?>
 
-<!DOCTYPE html>
-<html>
+<div class="card border-0 shadow-sm bg-white rounded-3">
+    <div class="card-header bg-success text-white py-3 fs-5 fw-bold d-flex align-items-center">
+        <i class="fa-solid fa-user-plus me-2"></i> Add New Teacher
+    </div>
 
-<head>
+    <div class="card-body p-4">
+        <?php echo $message; ?>
 
-<title>Add Teacher</title>
-
-<meta charset="UTF-8">
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<style>
-
-body{
-background:#f4f6f9;
-}
-
-.card{
-margin-top:50px;
-border:none;
-border-radius:12px;
-box-shadow:0 0 12px rgba(0,0,0,.15);
-}
-
-</style>
-
-</head>
-
-<body>
-
-<div class="container">
-
-<div class="row justify-content-center">
-
-<div class="col-md-7">
-
-<div class="card">
-
-<div class="card-header bg-success text-white">
-
-<h4>Add New Teacher</h4>
-
+        <form id="add-teacher-form">
+            <div class="mb-3">
+                <label>Teacher Name</label>
+                <input type="text" name="teacher_name" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>Designation</label>
+                <input type="text" name="designation" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>Email</label>
+                <input type="email" name="email" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>Password</label>
+                <input type="text" name="password" class="form-control" required>
+            </div>
+            
+            <button type="submit" name="add_teacher" class="btn btn-success px-4">Save Teacher</button>
+            <button type="button" id="btn-back-teachers" class="btn btn-secondary px-4">Back</button>
+        </form>
+    </div>
 </div>
 
-<div class="card-body">
+<script>
+    $('#btn-back-teachers').click(function(){
+        loadPageContent('admin_manage_teachers.php');
+    });
 
-<?php echo $msg; ?>
+    $('#add-teacher-form').on('submit', function(e){
+        e.preventDefault(); 
+        
+        var formData = $(this).serialize() + "&add_teacher=1"; 
 
-<form method="POST">
-
-<div class="mb-3">
-
-<label>Teacher Name</label>
-
-<input type="text"
-name="teacher_name"
-class="form-control"
-required>
-
-</div>
-
-<div class="mb-3">
-
-<label>Designation</label>
-
-<input type="text"
-name="designation"
-class="form-control"
-placeholder="Assistant Professor"
-required>
-
-</div>
-
-<div class="mb-3">
-
-<label>Email</label>
-
-<input type="email"
-name="email"
-class="form-control"
-required>
-
-</div>
-
-<div class="mb-3">
-
-<label>Password</label>
-
-<input type="text"
-name="password"
-class="form-control"
-required>
-
-</div>
-
-<button type="submit"
-name="save"
-class="btn btn-success">
-
-Save Teacher
-
-</button>
-
-<a href="manage_teachers.php"
-class="btn btn-secondary">
-
-Back
-
-</a>
-
-</form>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</body>
-
-</html>
+        $.ajax({
+            url: 'admin_add_teacher.php',
+            type: 'POST',
+            data: formData,
+            success: function(data) {
+                $('#dynamic-content').html(data); 
+            },
+            error: function() {
+                alert("Error occurred!");
+            }
+        });
+    });
+</script>
