@@ -24,8 +24,9 @@ $result = mysqli_query($conn, $sql);
     <div class="card-body">
         <div class="row mb-3">
             <div class="col-md-6">
-                <a href="add_teacher.php" class="btn btn-success">
-                    + Add Teacher
+                
+                <a href="#" onclick="loadPageContent('admin_add_teacher.php'); return false;" class="btn btn-success">
+                        <i class="fa-solid fa-plus me-1"></i> Add Teacher
                 </a>
                 <a href="admin_dashboard.php" class="btn btn-secondary">
                     Dashboard
@@ -67,10 +68,8 @@ $result = mysqli_query($conn, $sql);
                             <td><?php echo $row['email']; ?></td>
                             <td><?php echo $row['password']; ?></td>
                             <td>
-                                <a href="edit_teacher.php?id=<?php echo $row['teacher_id']; ?>" class="btn btn-warning btn-sm">
-                                    Edit
-                                </a>
-                                <a href="delete_teacher.php?id=<?php echo $row['teacher_id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Delete this teacher?')">
+                                <a href="#" onclick="loadPageContent('admin_edit_teacher.php?id=<?php echo $row['teacher_id']; ?>'); return false;" class="btn btn-warning btn-sm">Edit</a>
+                                <a href="#" onclick="loadPageContent('admin_delete_teacher.php?id=<?php echo $row['teacher_id']; ?>'); return false;" class="btn btn-danger btn-sm" onclick="return confirm('Delete this teacher?')">
                                     Delete
                                 </a>
                             </td>
