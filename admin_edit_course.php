@@ -7,180 +7,88 @@ if (!isset($_SESSION['admin'])) {
     exit();
 }
 
-if (!isset($_GET['course_id'])) {
-    header("Location: admin_manage_courses.php");
-    exit();
-}
-
 $course_id = $_GET['course_id'];
-
 $result = mysqli_query($conn, "SELECT * FROM course WHERE course_id='$course_id'");
 $course = mysqli_fetch_assoc($result);
 
-if (!$course) {
-    die("Course Not Found");
-}
+$message = "";
 
 if (isset($_POST['update_course'])) {
-
     $course_code = mysqli_real_escape_string($conn, $_POST['course_code']);
     $course_name = mysqli_real_escape_string($conn, $_POST['course_name']);
     $credit      = mysqli_real_escape_string($conn, $_POST['credit']);
     $batch_id    = mysqli_real_escape_string($conn, $_POST['batch_id']);
 
-    mysqli_query($conn, "UPDATE course SET
-        course_code='$course_code',
-        course_name='$course_name',
-        credit='$credit',
-        batch_id='$batch_id'
-        WHERE course_id='$course_id'");
+    $update = mysqli_query($conn, "UPDATE course SET 
+              course_code='$course_code', 
+              course_name='$course_name', 
+              credit='$credit', 
+              batch_id='$batch_id' 
+              WHERE course_id='$course_id'");
 
-    header("Location: admin_manage_courses.php");
-    exit();
+    if($update) {
+        $message = "<div class='alert alert-success'>Course Updated Successfully!</div>";
+    } else {
+        $message = "<div class='alert alert-danger'>Update Failed!</div>";
+    }
 }
 ?>
 
-<!DOCTYPE html>
-<html>
+<div class="card border-0 shadow-sm bg-white rounded-3">
+    <div class="card-header bg-warning text-dark py-3 fs-5 fw-bold d-flex align-items-center">
+        <i class="fa-solid fa-pen-to-square me-2"></i> Edit Course
+    </div>
 
-<head>
+    <div class="card-body p-4">
+        <?php echo $message; ?>
+        <form id="edit-course-form">
+            <div class="mb-3">
+                <label>Course Code</label>
+                <input type="text" name="course_code" class="form-control" value="<?php echo $course['course_code']; ?>" required>
+            </div>
+            <div class="mb-3">
+                <label>Course Name</label>
+                <input type="text" name="course_name" class="form-control" value="<?php echo $course['course_name']; ?>" required>
+            </div>
+            <div class="mb-3">
+                <label>Credit</label>
+                <input type="number" step="0.5" name="credit" class="form-control" value="<?php echo $course['credit']; ?>" required>
+            </div>
+            <div class="mb-3">
+                <label>Batch</label>
+                <select name="batch_id" class="form-select" required>
+                    <?php
+                    $batch = mysqli_query($conn, "SELECT * FROM batch ORDER BY batch_name");
+                    while($b = mysqli_fetch_assoc($batch)) {
+                        $selected = ($course['batch_id'] == $b['batch_id']) ? "selected" : "";
+                        echo "<option value='{$b['batch_id']}' $selected>{$b['batch_name']}</option>";
+                    }
+                    ?>
+                </select>
+            </div>
 
-<title>Edit Course</title>
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<style>
-
-body{
-    background:#f5f7fa;
-}
-
-.box{
-    width:650px;
-    margin:40px auto;
-    background:#fff;
-    padding:30px;
-    border-radius:10px;
-    box-shadow:0 0 15px rgba(0,0,0,.15);
-}
-
-</style>
-
-</head>
-
-<body>
-
-<div class="box">
-
-<h2 class="text-center mb-4">
-Edit Course
-</h2>
-
-<form method="POST">
-
-<div class="mb-3">
-
-<label>Course Code</label>
-
-<input
-type="text"
-name="course_code"
-class="form-control"
-value="<?php echo $course['course_code']; ?>"
-required>
-
+            <button type="submit" name="update_course" class="btn btn-success px-4">Update Course</button>
+            <button type="button" id="btn-back-courses" class="btn btn-secondary px-4">Back</button>
+        </form>
+    </div>
 </div>
 
-<div class="mb-3">
+<script>
+    $('#btn-back-courses').click(function(){
+        loadPageContent('admin_manage_courses.php');
+    });
 
-<label>Course Name</label>
-
-<input
-type="text"
-name="course_name"
-class="form-control"
-value="<?php echo $course['course_name']; ?>"
-required>
-
-</div>
-
-<div class="mb-3">
-
-<label>Credit</label>
-
-<input
-type="number"
-step="0.5"
-name="credit"
-class="form-control"
-value="<?php echo $course['credit']; ?>"
-required>
-
-</div>
-
-<div class="mb-3">
-
-<label>Batch</label>
-
-<select
-name="batch_id"
-class="form-select"
-required>
-
-<?php
-
-$batch = mysqli_query($conn,"SELECT * FROM batch ORDER BY batch_name");
-
-while($b=mysqli_fetch_assoc($batch))
-{
-
-?>
-
-<option
-value="<?php echo $b['batch_id']; ?>"
-
-<?php
-if($course['batch_id']==$b['batch_id'])
-echo "selected";
-?>
-
->
-
-<?php echo $b['batch_name']; ?>
-
-</option>
-
-<?php
-}
-?>
-
-</select>
-
-</div>
-
-<button
-type="submit"
-name="update_course"
-class="btn btn-success w-100">
-
-Update Course
-
-</button>
-
-<br><br>
-
-<a
-href="admin_manage_courses.php"
-class="btn btn-secondary w-100">
-
-Back
-
-</a>
-
-</form>
-
-</div>
-
-</body>
-
-</html>
+    $('#edit-course-form').on('submit', function(e){
+        e.preventDefault();
+        var formData = $(this).serialize() + "&update_course=1";
+        
+        $.ajax({
+            url: 'admin_edit_course.php?course_id=<?php echo $course_id; ?>',
+            type: 'POST',
+            data: formData,
+            success: function(data) {
+                $('#dynamic-content').html(data);
+            }
+        });
+    });
+</script>
