@@ -32,7 +32,6 @@ if (isset($_GET['search'])) {
 
 $result = mysqli_query($conn, $sql);
 
-
 if (!isset($_SERVER['HTTP_X_REQUESTED_WITH'])): 
 ?>
 <!DOCTYPE html>
@@ -47,7 +46,7 @@ if (!isset($_SERVER['HTTP_X_REQUESTED_WITH'])):
 <body>
 <?php endif; ?>
 
-<!-- main dashboard theme card -->
+
 <div class="card border-0 shadow-sm bg-white rounded-3">
     <div class="card-header bg-primary text-white py-3 fs-5 fw-bold">
         Manage Courses
@@ -55,17 +54,17 @@ if (!isset($_SERVER['HTTP_X_REQUESTED_WITH'])):
 
     <div class="card-body p-4">
         <div class="row mb-3 align-items-center">
-            <!-- button section -->
+           
             <div class="col-md-6 d-flex gap-2 mb-3 mb-md-0">
-                <a href="admin_add_course.php" class="btn btn-success px-3">
-                    + Add Course
+                <a href="#" onclick="loadPageContent('admin_add_course.php'); return false;" class="btn btn-success">
+                    <i class="fa-solid fa-plus me-1"></i> Add Course
                 </a>
                 <a href="admin_dashboard.php" class="btn btn-secondary px-3">
                     Dashboard
                 </a>
             </div>
 
-            <!-- search section -->
+            
             <div class="col-md-6">
                 <form id="course-search-form" method="GET">
                     <div class="input-group">
@@ -78,7 +77,7 @@ if (!isset($_SERVER['HTTP_X_REQUESTED_WITH'])):
             </div>
         </div>
 
-        <!-- responsive table -->
+        
         <div class="table-responsive">
             <table class="table table-bordered table-striped table-hover align-middle m-0 text-center">
                 <thead>
@@ -102,10 +101,10 @@ if (!isset($_SERVER['HTTP_X_REQUESTED_WITH'])):
                                 <td><?php echo htmlspecialchars($row['batch_name']); ?></td>
                                 <td>
                                     <div class="d-flex justify-content-center gap-1">
-                                        <a href="admin_edit_course.php?course_id=<?php echo $row['course_id']; ?>" class="btn btn-warning btn-sm px-2">
+                                        <a href="#" onclick="loadPageContent('admin_edit_course.php?course_id=<?php echo $row['course_id']; ?>'); return false;" class="btn btn-warning btn-sm px-2">
                                             Edit
                                         </a>
-                                        <a href="admin_delete_course.php?course_id=<?php echo $row['course_id']; ?>" class="btn btn-danger btn-sm px-2" onclick="return confirm('Are you sure you want to delete this course?');">
+                                        <a href="#" onclick="loadPageContent('admin_delete_courses.php?course_id=<?php echo $row['course_id']; ?>'); return false;" class="btn btn-danger btn-sm px-2" onclick="return confirm('Are you sure you want to delete this course?');">
                                             Delete
                                         </a>
                                     </div>
@@ -129,7 +128,7 @@ if (!isset($_SERVER['HTTP_X_REQUESTED_WITH'])):
     </div>
 </div>
 
-<!-- AJAX search script -->
+
 <script>
     $('#course-search-form').on('submit', function(e) {
         e.preventDefault();
